@@ -6,7 +6,7 @@
 #    By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/06 09:07:25 by ltuffery          #+#    #+#              #
-#    Updated: 2023/09/06 12:28:30 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/09/07 09:29:20 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ HEADERS	:= -I $(LIBMLX)/include -I./libft/includes -I./includes/
 LIBS	:= $(LIBMLX)/build/libmlx42.a ./libft/libft.a -ldl -lglfw -pthread -lm
 
 SRCS	:= srcs/main.c \
-		   srcs/parsing/textures.c
+		   srcs/parsing/textures.c \
+		   srcs/parsing/colors.c
 
 OBJS	:= ${SRCS:.c=.o}
 

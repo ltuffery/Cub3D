@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/07 10:41:42 by ltuffery         ###   ########.fr       */
+/*   Created: 2023/09/07 10:27:12 by ltuffery          #+#    #+#             */
+/*   Updated: 2023/09/07 10:42:04 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#include "cub.h"
+#include "get_next_line.h"
 
-# define FLOOR 'F'
-# define CEILING 'C'
+void	setup_config(t_map *map)
+{
+	char	*line;
 
-typedef struct s_map {
-	int		fd;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	int		floor;
-	int		ceiling;
-}	t_map;
-
-int		is_texture_line(char *line);
-int		is_color_line(char *line);
-void	insert_texture(t_map *map, char *line);
-
-#endif
+	line = get_next_line(map->fd);
+	while (line != NULL)
+	{
+		if (is_texture_line(line))
+			insert_texture(map, line);
+		line = get_next_line(map->fd);
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/06 12:16:28 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/07 10:25:12 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,17 @@ static void	valid_extension(char *file)
 
 int	main(int ac, char **av)
 {
-	int	fd;
+	t_map	map;
 
 	valid_number_argv(ac);
 	valid_extension(av[1]);
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
+	ft_bzero(&map, sizeof(map));
+	map.fd = open(av[1], O_RDONLY);
+	if (map.fd == -1)
 	{
 		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
 	textures_handler(fd);
+	close(map.fd);
 }
