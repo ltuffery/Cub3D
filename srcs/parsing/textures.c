@@ -6,57 +6,63 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:12:45 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/06 12:44:46 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/11 10:56:12 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub.h"
 #include "get_next_line.h"
 #include "libft.h"
 #include <stdlib.h>
 #include <fcntl.h>
 
-static void	error(char *msg)
-{
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(msg, 2);
-	exit(1);
-}
-
-static void	valid_identifier(char *line)
+static int	valid_identifier(char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
-		return ;
+		return (1);
 	if (ft_strncmp(line, "SO ", 3) == 0)
-		return ;
+		return (1);
 	if (ft_strncmp(line, "WE ", 3) == 0)
-		return ;
+		return (1);
 	if (ft_strncmp(line, "EA ", 3) == 0)
-		return ;
-	error("Invalid identifier");
+		return (1);
+	return (0);
 }
 
-static void	valid_path(char *path)
+static int	valid_path(char *path)
 {
-	int		fd;
+	int	len;
+	int	fd;
 
+	len  = ft_strlen(path);
+	if (len < 4 || ft_strncmp(&path[len - 4], ".png", 4) != 0)
+		return (0);
 	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		error("Invalid path");
-	close(fd);
+	return (fd != -1);
 }
 
-void	textures_handler(int fd)
+static void	assign(char **a, char *b)
 {
-	int		i;
-	char	*line;
+	if ((*a) != NULL)
+		free(*a);
+	(*a) = ft_strdup(b);
+}
 
-	i = 0;
-	while (i < 4)
-	{
-		line = get_next_line(fd);
-		valid_identifier(line);
-		line[ft_strlen(line) - 1] = '\0';
-		valid_path(&line[3]);
-		i++;
-	}
+int	is_texture_line(char *line)
+{
+	if (line[0] == '\0')
+		return (0);
+	return (valid_path(&line[3]) && valid_identifier(line));
+}
+
+void	insert_texture(t_map **map, char *line)
+{
+	if (ft_strncmp(line, "NO", 2) == 0)
+		assign(&(*map)->no, &line[3]);
+	else if (ft_strncmp(line, "SO", 2) == 0)
+		assign(&(*map)->so, &line[3]);
+	else if (ft_strncmp(line, "WE", 2) == 0)
+		assign(&(*map)->we, &line[3]);
+	else if (ft_strncmp(line, "EA", 2) == 0)
+		assign(&(*map)->ea, &line[3]);
 }
