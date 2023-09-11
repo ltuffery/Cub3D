@@ -3,5 +3,5 @@ SO ./maps/textures/basic.png
 WE ./maps/textures/basic.png
 EA ./maps/textures/basic.png
 
-F 255 
+F
 C 255,0,0

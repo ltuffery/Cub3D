@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 09:21:55 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/11 11:19:54 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:37:39 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	is_good_color_format(char *colors_line)
 
 int	is_color_line(char *line)
 {
-	if (line[0] != FLOOR && line[0] != CEILING && line[1] != ' ')
+	if ((line[0] != FLOOR && line[0] != CEILING) || line[1] != ' ')
 		return (0);
 	if (!is_good_color_format(&line[2]))
 		return (0);
