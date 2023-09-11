@@ -1,5 +1,7 @@
-NO ./maps/textures/basic.xpm
-SO ./maps/textures/basic.xpm
-WE ./maps/textures/basic.xpm
-EA ./maps/textures/basic.xpm
+NO ./maps/textures/basic.png
+SO ./maps/textures/basic.png
+WE ./maps/textures/basic.png
+EA ./maps/textures/basic.png
 
+F 255,255,255
+C 255,0,0

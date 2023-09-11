@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:12:45 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/07 11:02:35 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/11 10:56:12 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,38 @@ static int	valid_identifier(char *line)
 
 static int	valid_path(char *path)
 {
+	int	len;
 	int	fd;
 
+	len  = ft_strlen(path);
+	if (len < 4 || ft_strncmp(&path[len - 4], ".png", 4) != 0)
+		return (0);
 	fd = open(path, O_RDONLY);
 	return (fd != -1);
 }
 
-int	is_texture_line(char *line)
+static void	assign(char **a, char *b)
 {
-	return (valid_path(line) && valid_identifier(line));
+	if ((*a) != NULL)
+		free(*a);
+	(*a) = ft_strdup(b);
 }
 
-void	insert_textures(t_map *map, char *line)
+int	is_texture_line(char *line)
 {
-	line[ft_strlen(line) - 1] = '\0';
+	if (line[0] == '\0')
+		return (0);
+	return (valid_path(&line[3]) && valid_identifier(line));
+}
+
+void	insert_texture(t_map **map, char *line)
+{
 	if (ft_strncmp(line, "NO", 2) == 0)
-		map->no = ft_strdup(&line[3]);
+		assign(&(*map)->no, &line[3]);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		map->so = ft_strdup(&line[3]);
+		assign(&(*map)->so, &line[3]);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		map->we = ft_strdup(&line[3]);
-	else
-		map->ea = ft_strdup(&line[3]);
+		assign(&(*map)->we, &line[3]);
+	else if (ft_strncmp(line, "EA", 2) == 0)
+		assign(&(*map)->ea, &line[3]);
 }

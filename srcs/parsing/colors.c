@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 09:21:55 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/07 09:28:28 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:19:54 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,30 @@ int	is_color_line(char *line)
 	return (1);
 }
 
-void	colors_handler()
+void	insert_color(t_map **map, char *line)
 {
+	char	**split;
+	int		color;
+	int		i;
+
+	split = ft_split(&line[2], ',');
+	color = 0;
+	i = 0;
+	while (split[i] != NULL)
+	{
+		color |= ft_atoi(split[i]) << (8 * (4 - (i + 1)));
+		i++;
+	}
+	color |= 0xFF;
+	if (line[0] == FLOOR)
+		(*map)->floor = color;
+	else
+		(*map)->ceiling = color;
+	i = 0;
+	while (split[i] != NULL)
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
