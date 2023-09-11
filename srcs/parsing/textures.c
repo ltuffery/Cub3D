@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:12:45 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/11 10:56:12 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:32:12 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static int	valid_path(char *path)
 	int	len;
 	int	fd;
 
-	len  = ft_strlen(path);
+	len  = ft_strlen(path) - 3;
 	if (len < 4 || ft_strncmp(&path[len - 4], ".png", 4) != 0)
 		return (0);
-	fd = open(path, O_RDONLY);
+	fd = open(&path[3], O_RDONLY);
 	return (fd != -1);
 }
 
@@ -52,7 +52,7 @@ int	is_texture_line(char *line)
 {
 	if (line[0] == '\0')
 		return (0);
-	return (valid_path(&line[3]) && valid_identifier(line));
+	return (valid_path(line) && valid_identifier(line));
 }
 
 void	insert_texture(t_map **map, char *line)
