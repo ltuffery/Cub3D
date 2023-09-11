@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/11 09:57:58 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:57:59 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 # define CEILING 'C'
 
 typedef struct s_map {
-	int		fd;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	int		floor;
-	int		ceiling;
+	int					fd;
+	char				*no;
+	char				*so;
+	char				*we;
+	char				*ea;
+	unsigned int		floor;
+	unsigned int		ceiling;
 }	t_map;
 
 int		is_texture_line(char *line);

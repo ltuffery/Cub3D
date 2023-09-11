@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 09:21:55 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/11 11:37:39 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:21:39 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,24 @@ int	is_color_line(char *line)
 	return (1);
 }
 
+static void	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
 void	insert_color(t_map **map, char *line)
 {
-	char	**split;
-	int		color;
-	int		i;
+	char				**split;
+	unsigned int		color;
+	int					i;
 
 	split = ft_split(&line[2], ',');
 	color = 0;
@@ -59,11 +72,5 @@ void	insert_color(t_map **map, char *line)
 		(*map)->floor = color;
 	else
 		(*map)->ceiling = color;
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
+	free_tab(split);
 }
