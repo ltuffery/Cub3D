@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/11 11:57:59 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:28:16 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_map {
 	char				*ea;
 	unsigned int		floor;
 	unsigned int		ceiling;
+	char				**content;
 }	t_map;
 
 int		is_texture_line(char *line);
