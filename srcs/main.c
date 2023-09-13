@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/13 12:01:23 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/13 12:40:09 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,22 @@ static void	clean_map(t_map *map)
 	}
 }
 
+static int	is_all_good(t_map *map)
+{
+	if (map->ea == NULL || map->no == NULL || \
+			map->so == NULL || map->we == NULL)
+		return (0);
+	if (!is_valid_map(map->content))
+		return (0);
+	return (1);
+}
+
 #include <stdio.h>
 
 static void	print_map(char **content)
 {
 	int	i;
-	
+
 	i = 0;
 	if (content == NULL)
 	{
@@ -94,9 +104,8 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	setup_config(&map);
-	printf("%s | %s | %s | %s\n%u | %u\n\n", map.ea, map.no, map.so, map.we, map.ceiling, map.floor);
 	print_map(map.content);
-	if (map.ea == NULL || map.no == NULL || map.so == NULL || map.we == NULL)
+	if (!is_all_good(&map))
 	{
 		ft_putendl_fd("Error", 2);
 		clean_map(&map);

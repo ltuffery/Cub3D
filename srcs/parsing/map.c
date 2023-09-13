@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:39:42 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/13 12:04:26 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/13 12:42:01 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,52 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+static int	check_valid_border(char **content, int y, int x)
+{
+	int	i;
+
+	i = -1;
+	while (i < 2)
+	{
+		if (content[y - 1][x + i] == ' ')
+			return (0);
+		if (content[y][x + i] == ' ')
+			return (0);
+		if (content[y + 1][x + i] == ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	is_valid_map(char **content)
 {
 	int	i;
 	int	j;
+	int	nb_player_location;
 
 	i = 0;
+	nb_player_location = 0;
 	while (content[i] != NULL)
 	{
 		j = 0;
 		while (content[i][j] != '\0')
 		{
+			if (content[i][j] == '0' && (i == 0 || content[i + 1] == NULL))
+				return (0);
+			else if (content[i][j] == '0' && !check_valid_border(content, i, j))
+				return (0);
+			else if (ft_strchr("NSEW", content[i][j]) != 0)
+			{
+				nb_player_location++;
+				if (!check_valid_border(content, i, j))
+					return (0);
+			}
+			j++;
 		}
 		i++;
 	}
-	return (1);
+	return (nb_player_location == 1);
 }
 
 int	is_map_line(char *line)
@@ -51,28 +82,9 @@ int	is_map_line(char *line)
 	return (is_full_space == 0);
 }
 
-static size_t	find_max_len(char **content)
-{
-	int		i;
-	size_t	len;
-	size_t	max_len;
-
-	i = 0;
-	max_len = 0;
-	while (content[i] != NULL)
-	{
-		len = ft_strlen(content[i]);
-		if (len > max_len)
-			max_len = len;
-		i++;
-	}
-	return (max_len);
-}
-
 static void	fill_map(char **content)
 {
 	int		i;
-	size_t	j;
 	size_t	max_len;
 	char	*new_line;
 
@@ -89,14 +101,8 @@ static void	fill_map(char **content)
 		if (new_line == NULL)
 			continue ;
 		ft_strlcpy(new_line, content[i], ft_strlen(content[i]) + 1);
-		j = ft_strlen(content[i]);
-		while (j < max_len)
-		{
-			new_line[j] = ' ';
-			j++;
-		}
 		free(content[i]);
-		content[i] = new_line;
+		content[i] = fill_str(new_line, ' ', max_len);
 		i++;
 	}
 }

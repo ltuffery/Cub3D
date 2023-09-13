@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:12:45 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/11 11:36:20 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/13 12:39:14 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	valid_path(char *path)
 	int	len;
 	int	fd;
 
-	len  = ft_strlen(path);
+	len = ft_strlen(path);
 	if (len < 4 || ft_strncmp(&path[len - 4], ".png", 4) != 0)
 		return (0);
 	fd = open(&path[3], O_RDONLY);
