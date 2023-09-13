@@ -6,7 +6,7 @@
 #    By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:46:06 by ltuffery          #+#    #+#              #
-#    Updated: 2023/09/06 11:09:35 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/09/13 10:52:19 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS = srcs/ft_atoi.c \
       srcs/mem/ft_memmove.c \
       srcs/to/ft_toupper.c \
       srcs/to/ft_tolower.c \
+	  srcs/str/ft_strappend.c \
       srcs/str/ft_strlen.c \
       srcs/str/ft_strchr.c \
       srcs/str/ft_strrchr.c \

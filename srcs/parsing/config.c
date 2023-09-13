@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:27:12 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/11 11:06:57 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:32:53 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	setup_config(t_map *map)
 			insert_texture(&map, line);
 		else if (is_color_line(line))
 			insert_color(&map, line);
-		free(line);
+		else if (is_map_line(line))
+			insert_map(&map, line);
+		if (line != NULL)
+			free(line);
 		line = get_next_line(map->fd);
 	}
 	if (line != NULL)

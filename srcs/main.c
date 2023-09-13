@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/11 11:58:18 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/13 12:01:23 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	valid_extension(char *file)
 
 static void	clean_map(t_map *map)
 {
+	int	i;
+
 	if (map->no != NULL)
 		free(map->no);
 	if (map->we != NULL)
@@ -47,9 +49,36 @@ static void	clean_map(t_map *map)
 		free(map->ea);
 	if (map->so != NULL)
 		free(map->so);
+	if (map->content != NULL)
+	{
+		i = 0;
+		while (map->content[i] != NULL)
+		{
+			free(map->content[i]);
+			i++;
+		}
+		free(map->content);
+	}
 }
 
 #include <stdio.h>
+
+static void	print_map(char **content)
+{
+	int	i;
+	
+	i = 0;
+	if (content == NULL)
+	{
+		ft_putendl_fd("Map is null", 1);
+		return ;
+	}
+	while (content[i] != NULL)
+	{
+		ft_putendl_fd(content[i], 1);
+		i++;
+	}
+}
 
 int	main(int ac, char **av)
 {
@@ -65,7 +94,8 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	setup_config(&map);
-	printf("%s | %s | %s | %s\n%u | %u\n", map.ea, map.no, map.so, map.we, map.ceiling, map.floor);
+	printf("%s | %s | %s | %s\n%u | %u\n\n", map.ea, map.no, map.so, map.we, map.ceiling, map.floor);
+	print_map(map.content);
 	if (map.ea == NULL || map.no == NULL || map.so == NULL || map.we == NULL)
 	{
 		ft_putendl_fd("Error", 2);
