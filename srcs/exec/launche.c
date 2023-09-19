@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:05:50 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/18 09:21:22 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:46:51 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 # include "MLX42/MLX42.h"
 #include <stdbool.h>
 
-void	close_window(void *data)
+static void	ft_hook(void *params)
 {
-	mlx_close_window((mlx_t *)data);
+	t_data *data;
+
+	data = (t_data *)params;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(data->mlx);
 }
 
 void	launche(t_map *map)
@@ -25,6 +29,7 @@ void	launche(t_map *map)
 
 	data.map = map;
 	data.mlx = mlx_init(WIDTH, HEIGHT, TITLE, false);
-	mlx_close_hook(data.mlx, close_window, data.mlx);
+	mlx_loop_hook(data.mlx, &ft_hook, &data);
 	mlx_loop(data.mlx);
+	mlx_terminate(data.mlx);
 }

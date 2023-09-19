@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/18 09:21:40 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:34:14 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@
 # define HEIGHT 720
 # define TITLE "CUB3D"
 
+typedef enum e_direction {
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+}	t_direction;
+
+typedef struct s_player {
+	int			x;
+	int			y;
+	t_direction	direction;
+}	t_player;
 
 typedef struct s_map {
 	int					fd;

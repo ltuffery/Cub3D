@@ -1,68 +1,19 @@
 {
-    nv_driver_bug_1
-    Memcheck:Param
-    write(buf)
-    ...
-    obj:*/libnvidia-glcore.so*
-}
-{
-    nv_driver_bug_2
-    Memcheck:Cond
-    ...
-    obj:*/libnvidia-glcore.so*
-}
-{
-    nv_driver_bug_3
-    Memcheck:Leak
-    fun:calloc
-    obj:/usr/lib*/libGL.so*
-}
-{
-   nv_driver_bug_4
-   Memcheck:Param
-   sendmsg(msg.msg_iov[0])
-   fun:sendmsg
-   obj:*/libGLX_nvidia.so*
-}
-{
-   nv_driver_bug_5
+   <insert_a_suppression_name_here>
    Memcheck:Leak
+   match-leak-kinds: definite
    fun:malloc
-   ...
-   obj:*/libGLX_nvidia.so*
-}
-{
-    nv_driver_bug_6
-    Memcheck:Leak
-    fun:calloc
-    ...
-    obj:*/libGLX_nvidia.so*
-}
-{
-    nv_driver_bug_7
-    Memcheck:Leak
-    fun:realloc
-    ...
-    obj:*/libGLX_nvidia.so*
-}
-{
-   nv_driver_bug_8
-   Memcheck:Leak
    fun:malloc
-   ...
-   obj:*/libnvidia-glcore.so*
-}
-{
-   nv_driver_bug_9
-   Memcheck:Leak
-   fun:calloc
-   ...
-   obj:*/libnvidia-glcore.so*
-}
-{
-   dlopen
-   Memcheck:Leak
-   ...
-   fun:dlopen
-   ...
+   fun:_dl_find_object_update
+   fun:dl_open_worker_begin
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+   fun:_dl_catch_exception
+   fun:_dl_open
+   fun:dlopen_doit
+   fun:_dl_catch_exception
+   fun:_dl_catch_error
+   fun:_dlerror_run
+   fun:dlopen_implementation
+   fun:dlopen@@GLIBC_2.34
 }

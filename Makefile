@@ -6,7 +6,7 @@
 #    By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/06 09:07:25 by ltuffery          #+#    #+#              #
-#    Updated: 2023/09/18 09:05:40 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/09/19 14:55:10 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ libmlx:
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBS) $(CFLAGS) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJS)
