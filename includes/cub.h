@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/19 13:34:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:56:15 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,10 @@
 # define HEIGHT 720
 # define TITLE "CUB3D"
 
-typedef enum e_direction {
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST
-}	t_direction;
-
 typedef struct s_player {
-	int			x;
-	int			y;
-	t_direction	direction;
+	int		x;
+	int		y;
+	char	direction;
 }	t_player;
 
 typedef struct s_map {
@@ -43,6 +36,7 @@ typedef struct s_map {
 	char				*ea;
 	unsigned int		floor;
 	unsigned int		ceiling;
+	t_player			*player;
 	char				**content;
 }	t_map;
 
@@ -57,6 +51,7 @@ int		is_color_line(char *line);
 void	insert_color(t_map **map, char *line);
 int		is_map_line(char *line);
 void	insert_map(t_map **map, char *line);
+void	set_player(t_map **map);
 int		is_valid_map(char **content);
 void	setup_config(t_map *map);
 

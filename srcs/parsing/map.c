@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:39:42 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/13 12:42:01 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:56:08 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,47 @@ static int	check_valid_border(char **content, int y, int x)
 	return (1);
 }
 
+void	set_player(t_map **map)
+{
+	int			i;
+	int			j;
+	t_player	*player;
+
+	i = 0;
+	player = malloc(sizeof(t_player) * 1);
+	if (player == NULL)
+		return ;
+	while ((*map)->content[i] != NULL)
+	{
+		j = 0;
+		while ((*map)->content[i][j] != '\0')
+		{
+			if ((*map)->content[i][j] == 'N')
+				player->direction = 'N';
+			if ((*map)->content[i][j] == 'S')
+				player->direction = 'S';
+			if ((*map)->content[i][j] == 'E')
+				player->direction = 'E';
+			if ((*map)->content[i][j] == 'W')
+				player->direction = 'W';
+			j++;
+		}
+		if (player->direction != '\0')
+		{
+			player->y = i;
+			player->x = j;
+			break ;
+		}
+		i++;
+	}
+	(*map)->player = player;
+}
+
 int	is_valid_map(char **content)
 {
-	int	i;
-	int	j;
-	int	nb_player_location;
+	int			i;
+	int			j;
+	int			nb_player_location;
 
 	i = 0;
 	nb_player_location = 0;

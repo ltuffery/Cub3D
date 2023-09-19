@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/19 14:47:06 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:00:07 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ static void	clean_map(t_map *map)
 		}
 		free(map->content);
 	}
+	if (map->player != NULL)
+		free(map->player);
 }
 
 static int	is_all_good(t_map *map)
@@ -112,6 +114,6 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	launche(&map);
-	//clean_map(&map);
+	clean_map(&map);
 	close(map.fd);
 }
