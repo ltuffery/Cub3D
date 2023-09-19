@@ -6,12 +6,12 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:05:50 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/19 15:53:32 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:07:53 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-# include "MLX42/MLX42.h"
+#include "MLX42/MLX42.h"
 #include <stdbool.h>
 
 static void	puts_pixel(mlx_image_t *image, int y, int x, unsigned int color)
@@ -60,7 +60,7 @@ static void	display_map(t_data *data)
 
 static void	ft_hook(void *params)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)params;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
