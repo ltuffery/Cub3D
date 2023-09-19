@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/19 15:56:15 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:42:39 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define TITLE "CUB3D"
 
 typedef struct s_player {
-	int		x;
-	int		y;
+	float	x;
+	float	y;
 	char	direction;
 }	t_player;
 

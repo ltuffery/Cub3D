@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:39:42 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/19 15:56:08 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/19 17:08:08 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "get_next_line.h"
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 static int	check_valid_border(char **content, int y, int x)
