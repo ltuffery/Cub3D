@@ -59,3 +59,10 @@
    ...
    obj:*/libnvidia-glcore.so*
 }
+{
+   dlopen
+   Memcheck:Leak
+   ...
+   fun:dlopen
+   ...
+}
