@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/13 12:40:09 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/18 09:23:10 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	main(int ac, char **av)
 		clean_map(&map);
 		return (1);
 	}
+	launche(&map);
 	clean_map(&map);
 	close(map.fd);
 }

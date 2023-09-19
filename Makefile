@@ -6,7 +6,7 @@
 #    By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/06 09:07:25 by ltuffery          #+#    #+#              #
-#    Updated: 2023/09/13 12:14:46 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/09/18 09:05:40 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRCS	:= srcs/main.c \
 		   srcs/parsing/colors.c \
 		   srcs/parsing/config.c \
 		   srcs/parsing/map.c \
-		   srcs/utils/map_utils.c
+		   srcs/utils/map_utils.c \
+		   srcs/exec/launche.c
 
 OBJS	:= ${SRCS:.c=.o}
 

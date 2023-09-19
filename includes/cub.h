@@ -6,17 +6,22 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/13 12:31:22 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/18 09:21:40 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
+# include <stddef.h>
+# include "MLX42/MLX42.h"
+
 # define FLOOR 'F'
 # define CEILING 'C'
+# define WIDTH 1080
+# define HEIGHT 720
+# define TITLE "CUB3D"
 
-# include <stddef.h>
 
 typedef struct s_map {
 	int					fd;
@@ -29,6 +34,11 @@ typedef struct s_map {
 	char				**content;
 }	t_map;
 
+typedef struct s_data {
+	t_map	*map;
+	mlx_t	*mlx;
+}	t_data;
+
 int		is_texture_line(char *line);
 void	insert_texture(t_map **map, char *line);
 int		is_color_line(char *line);
@@ -40,5 +50,7 @@ void	setup_config(t_map *map);
 
 char	*fill_str(char *str, char fill, size_t max);
 size_t	find_max_len(char **content);
+
+void	launche(t_map *map);
 
 #endif
