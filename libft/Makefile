@@ -6,7 +6,7 @@
 #    By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:46:06 by ltuffery          #+#    #+#              #
-#    Updated: 2023/09/19 17:36:41 by chmartin         ###   ########.fr        #
+#    Updated: 2023/09/20 14:51:03 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ SRCS = srcs/ft_atoi.c \
       srcs/is/ft_isalnum.c \
       srcs/is/ft_isascii.c \
 	  srcs/is/ft_isprint.c \
-	  srcs/is/ft_max_bonus.c \
       srcs/mem/ft_memchr.c \
       srcs/mem/ft_memcmp.c \
       srcs/mem/ft_memset.c \
@@ -59,11 +58,7 @@ SRCS = srcs/ft_atoi.c \
 	  srcs/lst/ft_lstiter.c \
 	  srcs/lst/ft_lstmap.c \
 	  srcs/gnl/get_next_line.c \
-	  srcs/gnl/get_next_line_utils.c \
-	  srcs/ft_dprintf/ft_dprintf_bonus.c \
-	  srcs/ft_dprintf/ft_flags_bonus.c \
-	  srcs/ft_dprintf/ft_types_bonus.c \
-	  srcs/ft_dprintf/ft_utils_bonus.c
+	  srcs/gnl/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o) 
 
