@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 15:12:47 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:38:46 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define WIDTH 1080
 # define HEIGHT 720
 # define TITLE "CUB3D"
+# define SPEED 0.2
 
 typedef struct s_player {
 	float	x;
@@ -41,10 +42,11 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_data {
-	t_map	*map;
-	mlx_t	*mlx;
-	float	fps;
+	t_map		*map;
+	mlx_t		*mlx;
+	float		fps;
 	mlx_image_t	*image;
+	t_player	*player;
 }	t_data;
 
 int		is_texture_line(char *line);
@@ -60,6 +62,16 @@ void	setup_config(t_map *map);
 char	*fill_str(char *str, char fill, size_t max);
 size_t	find_max_len(char **content);
 
-void	launche(t_map *map);
+/*	Exec	*/
+
+void	launcher(t_map *map);
+void	display_player(t_data *data);
+void	display_map(t_data *data);
+
+/*	moves	*/
+void	move_forward(t_data *data);
+void	move_back(t_data *data);
+void	move_rigth(t_data *data);
+void	move_left(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/19 16:00:07 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:50:24 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,25 +73,6 @@ static int	is_all_good(t_map *map)
 	return (1);
 }
 
-#include <stdio.h>
-
-static void	print_map(char **content)
-{
-	int	i;
-
-	i = 0;
-	if (content == NULL)
-	{
-		ft_putendl_fd("Map is null", 1);
-		return ;
-	}
-	while (content[i] != NULL)
-	{
-		ft_putendl_fd(content[i], 1);
-		i++;
-	}
-}
-
 int	main(int ac, char **av)
 {
 	t_map	map;
@@ -106,14 +87,13 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	setup_config(&map);
-	print_map(map.content);
 	if (!is_all_good(&map))
 	{
 		ft_putendl_fd("Error", 2);
 		clean_map(&map);
 		return (1);
 	}
-	launche(&map);
+	launcher(&map);
 	clean_map(&map);
 	close(map.fd);
 }
