@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:39:42 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/19 17:08:08 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:27:10 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,16 @@ void	set_player(t_map **map)
 				player->direction = 'E';
 			if ((*map)->content[i][j] == 'W')
 				player->direction = 'W';
+			if (player->direction != '\0')
+			{
+				player->y = i + 0.5;
+				player->x = j + 0.5;
+				break ;
+			}
 			j++;
 		}
 		if (player->direction != '\0')
-		{
-			player->y = i;
-			player->x = j;
 			break ;
-		}
 		i++;
 	}
 	(*map)->player = player;

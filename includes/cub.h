@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/19 16:42:39 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:12:47 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 typedef struct s_player {
 	float	x;
 	float	y;
-	char	direction;
+	char	direction; // mettre en float
 }	t_player;
 
 typedef struct s_map {
@@ -43,6 +43,8 @@ typedef struct s_map {
 typedef struct s_data {
 	t_map	*map;
 	mlx_t	*mlx;
+	float	fps;
+	mlx_image_t	*image;
 }	t_data;
 
 int		is_texture_line(char *line);
