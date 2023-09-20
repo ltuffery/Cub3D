@@ -6,13 +6,13 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:26:27 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 16:37:53 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:00:44 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static int	is_wall(int player_x, int player_y, char **map)
+static int	is_wall(int player_y, int player_x, char **map)
 {
 	return (map[player_y][player_x] == '1');
 }

@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:05:50 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 16:49:21 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:53:50 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	launcher(t_map *map)
 	data.fps = 0;
 	data.image = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	data.player = data.map->player;
+	display_map(&data);
+	display_player(&data);
 	mlx_loop_hook(data.mlx, &ft_hook, &data);
 	mlx_loop_hook(data.mlx, &fps, &data);
 	mlx_loop(data.mlx);
