@@ -6,12 +6,13 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 16:49:53 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:39:14 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "MLX42/MLX42.h"
+#include <math.h>
 
 static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)
 {
@@ -39,6 +40,32 @@ static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)
 	}
 }
 
+static void	display_player_view(t_player *player, t_data *data)
+{
+	t_player	inc;
+	t_player	copy;
+	float		dx;
+	float		dy;
+	float		steps;
+
+	dx = (player->x * 15) - (cosf(player->direction) + 15);
+	dy = (player->y * 15) - (sinf(player->direction) + 15);
+	steps = fmax(fabs(dx), fabs(dy));
+	inc.x = dx / (float)steps;
+	inc.y = dy / (float)steps;
+	copy.x = player->x;
+	copy.y = player->y;
+	while (steps >= 0)
+	{
+		steps--;
+		if (copy.x >= 0 && copy.x <= WIDTH)
+			if (copy.y >= 0 && copy.y <= HEIGHT)
+				mlx_put_pixel(data->image, (int)copy.x, (int)copy.y, 0x0000FFFF);
+		copy.x += inc.x;
+		copy.y += inc.y;
+	}
+}
+
 void	display_player(t_data *data)
 {
 	int	xx;
@@ -58,6 +85,7 @@ void	display_player(t_data *data)
 		}
 		yy++;
 	}
+	display_player_view(data->player, data);
 }
 
 void	display_map(t_data *data)
