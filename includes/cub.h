@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 16:38:46 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:18:56 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 typedef struct s_player {
 	float	x;
 	float	y;
-	char	direction; // mettre en float
+	float	direction;
 }	t_player;
 
 typedef struct s_map {

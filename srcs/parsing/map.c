@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:39:42 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 15:27:10 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:14:03 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,53 +24,19 @@ static int	check_valid_border(char **content, int y, int x)
 	i = -1;
 	while (i < 2)
 	{
-		if (content[y - 1][x + i] == ' ')
+		if (y == 0 || x + i < 0)
 			return (0);
-		if (content[y][x + i] == ' ')
+		if (content[y - 1][x + i] == ' ' || content[y - 1][x + i] == '\0')
 			return (0);
-		if (content[y + 1][x + i] == ' ')
+		if (content[y][x + i] == ' ' || content[y][x + i] == '\0')
+			return (0);
+		if (content[y + 1] == NULL)
+			return (0);
+		if (content[y + 1][x + i] == ' ' || content[y + 1][x + i] == '\0')
 			return (0);
 		i++;
 	}
 	return (1);
-}
-
-void	set_player(t_map **map)
-{
-	int			i;
-	int			j;
-	t_player	*player;
-
-	i = 0;
-	player = malloc(sizeof(t_player) * 1);
-	if (player == NULL)
-		return ;
-	while ((*map)->content[i] != NULL)
-	{
-		j = 0;
-		while ((*map)->content[i][j] != '\0')
-		{
-			if ((*map)->content[i][j] == 'N')
-				player->direction = 'N';
-			if ((*map)->content[i][j] == 'S')
-				player->direction = 'S';
-			if ((*map)->content[i][j] == 'E')
-				player->direction = 'E';
-			if ((*map)->content[i][j] == 'W')
-				player->direction = 'W';
-			if (player->direction != '\0')
-			{
-				player->y = i + 0.5;
-				player->x = j + 0.5;
-				break ;
-			}
-			j++;
-		}
-		if (player->direction != '\0')
-			break ;
-		i++;
-	}
-	(*map)->player = player;
 }
 
 int	is_valid_map(char **content)
@@ -88,14 +54,10 @@ int	is_valid_map(char **content)
 		{
 			if (content[i][j] == '0' && (i == 0 || content[i + 1] == NULL))
 				return (0);
-			else if (content[i][j] == '0' && !check_valid_border(content, i, j))
+			else if (content[i][j] != '1' && !check_valid_border(content, i, j))
 				return (0);
 			else if (ft_strchr("NSEW", content[i][j]) != 0)
-			{
 				nb_player_location++;
-				if (!check_valid_border(content, i, j))
-					return (0);
-			}
 			j++;
 		}
 		i++;
