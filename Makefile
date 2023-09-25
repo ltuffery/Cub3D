@@ -6,13 +6,13 @@
 #    By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/06 09:07:25 by ltuffery          #+#    #+#              #
-#    Updated: 2023/09/20 17:06:52 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/09/25 16:01:19 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= cub3D
 
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 
 LIBMLX	:= ./MLX42
 

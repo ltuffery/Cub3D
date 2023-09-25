@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:02:24 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 17:19:58 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/22 11:54:23 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,14 @@ static void	insert_direction(t_player *player, t_map **map, int i, int j)
 {
 	if ((*map)->content[i][j] == 'N')
 		player->direction = 90;
-	if ((*map)->content[i][j] == 'S')
+	else if ((*map)->content[i][j] == 'S')
 		player->direction = 270;
-	if ((*map)->content[i][j] == 'E')
-		player->direction = 0;
-	if ((*map)->content[i][j] == 'W')
+	else if ((*map)->content[i][j] == 'W')
 		player->direction = 180;
-	if (player->direction != '\0')
-	{
-		player->y = i + 0.5;
-		player->x = j + 0.5;
-	}
+	else
+		player->direction = 0;
+	player->y = i + 0.5;
+	player->x = j + 0.5;
 }
 
 void	set_player(t_map **map)
