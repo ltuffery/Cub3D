@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:05:50 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/25 17:07:08 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:29:38 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static void	ft_hook(void *data)
 	if (mlx_is_key_down(((t_data *)data)->mlx, MLX_KEY_D))
 		move_rigth(data);
 	if (mlx_is_key_down(((t_data *)data)->mlx, MLX_KEY_RIGHT))
-		((t_data *)data)->player->direction += 0.1;
+		((t_data *)data)->player->direction += 0.01;
 	if (mlx_is_key_down(((t_data *)data)->mlx, MLX_KEY_LEFT))
-		((t_data *)data)->player->direction -= 0.1;
+		((t_data *)data)->player->direction -= 0.01;
 	if (has_key_down(data))
 	{
 		display_map(data);

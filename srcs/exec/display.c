@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/25 17:09:11 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:49:25 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ static void	display_player_view(t_player *player, t_data *data)
     dy = ((player->y + sinf(player->direction) * 25) - player->y) / longueur;
     x = player->x * 15;
     y = player->y * 15;
-    int i = 1;
+    //int i = 1;
 
-    while (i <= longueur) {
+    while (data->map->content[(int)(y / 15)][(int)(x / 15)] != '1') {
         x += dx;
         y += dy;
 		if (y > 0 && x > 0)
 			mlx_put_pixel(data->image, x, y, 0x00FF00FF);
-        i++;
+        //i++;
     }
 }
 
