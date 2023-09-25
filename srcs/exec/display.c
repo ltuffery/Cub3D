@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/25 16:04:26 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:09:11 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	display_player_view(t_player *player, t_data *data)
         x += dx;
         y += dy;
 		if (y > 0 && x > 0)
-			mlx_put_pixel(data->image, x, y, 0x00FFFFFF);
+			mlx_put_pixel(data->image, x, y, 0x00FF00FF);
         i++;
     }
 }
