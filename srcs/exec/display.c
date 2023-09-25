@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 17:39:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:04:26 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,37 @@ static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)
 			if (type_chunk == 0)
 				mlx_put_pixel(image, xx + (x * d), yy + (y * d), 0xFFFFFFFF);
 			else
-				mlx_put_pixel(image, xx + (x * d), yy + (y * d), 0x00FF00FF);
+				mlx_put_pixel(image, xx + (x * d), yy + (y * d), 0x000000FF);
 			xx++;
 		}
 		yy++;
 	}
 }
 
+#include <stdio.h>
+
 static void	display_player_view(t_player *player, t_data *data)
 {
-	t_player	inc;
-	t_player	copy;
-	float		dx;
-	float		dy;
-	float		steps;
+    double longueur, dx, dy, x, y;
+    if (fabs((player->x + cosf(player->direction) * 25) - player->x) >= fabs((player->y + sinf(player->direction) * 25) - player->y)) {
+        longueur = fabs((player->x + cosf(player->direction) * 25) - player->x);
+    } else {
+        longueur = fabs((player->y + sinf(player->direction) * 25) - player->y);
+    }
 
-	dx = (player->x * 15) - (cosf(player->direction) + 15);
-	dy = (player->y * 15) - (sinf(player->direction) + 15);
-	steps = fmax(fabs(dx), fabs(dy));
-	inc.x = dx / (float)steps;
-	inc.y = dy / (float)steps;
-	copy.x = player->x;
-	copy.y = player->y;
-	while (steps >= 0)
-	{
-		steps--;
-		if (copy.x >= 0 && copy.x <= WIDTH)
-			if (copy.y >= 0 && copy.y <= HEIGHT)
-				mlx_put_pixel(data->image, (int)copy.x, (int)copy.y, 0x0000FFFF);
-		copy.x += inc.x;
-		copy.y += inc.y;
-	}
+    dx = ((player->x + cosf(player->direction) * 25) - player->x) / longueur;
+    dy = ((player->y + sinf(player->direction) * 25) - player->y) / longueur;
+    x = player->x * 15;
+    y = player->y * 15;
+    int i = 1;
+
+    while (i <= longueur) {
+        x += dx;
+        y += dy;
+		if (y > 0 && x > 0)
+			mlx_put_pixel(data->image, x, y, 0x00FFFFFF);
+        i++;
+    }
 }
 
 void	display_player(t_data *data)
@@ -107,5 +107,4 @@ void	display_map(t_data *data)
 		}
 		y++;
 	}
-	mlx_image_to_window(data->mlx, data->image, 0, 0);
 }

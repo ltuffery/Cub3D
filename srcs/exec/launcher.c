@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:05:50 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 16:53:50 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:04:43 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ static int	has_key_down(t_data *data)
 	return (mlx_is_key_down(data->mlx, MLX_KEY_W) || \
 			mlx_is_key_down(data->mlx, MLX_KEY_S) || \
 			mlx_is_key_down(data->mlx, MLX_KEY_A) || \
-			mlx_is_key_down(data->mlx, MLX_KEY_D));
+			mlx_is_key_down(data->mlx, MLX_KEY_D) ||
+			mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) ||
+			mlx_is_key_down(data->mlx, MLX_KEY_LEFT));
 }
 
 static void	ft_hook(void *data)
@@ -56,6 +58,10 @@ static void	ft_hook(void *data)
 		move_left(data);
 	if (mlx_is_key_down(((t_data *)data)->mlx, MLX_KEY_D))
 		move_rigth(data);
+	if (mlx_is_key_down(((t_data *)data)->mlx, MLX_KEY_RIGHT))
+		((t_data *)data)->player->direction += 0.1;
+	if (mlx_is_key_down(((t_data *)data)->mlx, MLX_KEY_LEFT))
+		((t_data *)data)->player->direction -= 0.1;
 	if (has_key_down(data))
 	{
 		display_map(data);
@@ -76,6 +82,7 @@ void	launcher(t_map *map)
 	display_player(&data);
 	mlx_loop_hook(data.mlx, &ft_hook, &data);
 	mlx_loop_hook(data.mlx, &fps, &data);
+	mlx_image_to_window(data.mlx, data.image, 0, 0);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 }
