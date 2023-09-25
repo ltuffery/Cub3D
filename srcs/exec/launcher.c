@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:05:50 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/25 16:04:43 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:07:08 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static int	has_key_down(t_data *data)
 	return (mlx_is_key_down(data->mlx, MLX_KEY_W) || \
 			mlx_is_key_down(data->mlx, MLX_KEY_S) || \
 			mlx_is_key_down(data->mlx, MLX_KEY_A) || \
-			mlx_is_key_down(data->mlx, MLX_KEY_D) ||
-			mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) ||
+			mlx_is_key_down(data->mlx, MLX_KEY_D) || \
+			mlx_is_key_down(data->mlx, MLX_KEY_RIGHT) || \
 			mlx_is_key_down(data->mlx, MLX_KEY_LEFT));
 }
 
