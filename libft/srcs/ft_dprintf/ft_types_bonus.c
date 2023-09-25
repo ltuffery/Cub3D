@@ -6,11 +6,11 @@
 /*   By: chmartin <chmartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:31:35 by chmartin          #+#    #+#             */
-/*   Updated: 2023/09/19 17:32:39 by chmartin         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:03:59 by chmartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_dprintf.h"
+#include "../libft.h"
 
 int	ft_print_char(int fd, char c, t_opt *opt)
 {
@@ -50,7 +50,7 @@ int	ft_print_addr(int fd, unsigned long nbr, t_opt *opt)
 {
 	int			printed;
 	char		buf[16];
-	const int	len = _ft_itoa(buf, nbr, 16, 32);
+	const int	len = _itoa(buf, nbr, 16, 32);
 
 	printed = 0;
 	if (nbr == 0)
@@ -77,7 +77,7 @@ int	ft_print_sgn(int fd, long nbr, t_opt *opt)
 
 	printed = 0;
 	ft_set_sign(&nbr, opt);
-	len = _ft_itoa(buf, nbr, 10, 0);
+	len = _itoa(buf, nbr, 10, 0);
 	opt->width -= ft_max(len, opt->prec) * (nbr || !opt->dot || opt->prec);
 	if (!opt->left && (opt->dot || !opt->zero))
 		while (opt->width-- > 0)
@@ -102,7 +102,7 @@ int	ft_print_usgn(int fd, unsigned long nbr, t_opt *opt, int flag)
 	int			i;
 	int			printed;
 	char		buf[32];
-	const int	len = _ft_itoa(buf, nbr, 10 + 6 * (flag > 10), 32 * (flag > 16));
+	const int	len = _itoa(buf, nbr, 10 + 6 * (flag > 10),	32 * (flag > 16));
 
 	printed = 0;
 	opt->width -= (nbr && opt->hash) << 1;

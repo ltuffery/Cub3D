@@ -6,7 +6,7 @@
 /*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:44:52 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/19 17:37:47 by chmartin         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:13:29 by chmartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 int		ft_max(int a, int b);
+void	ft_strrev(char *bgn, char *end);
 
 #endif

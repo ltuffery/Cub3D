@@ -44,6 +44,7 @@ SRCS = srcs/ft_atoi.c \
 	  srcs/str/ft_strtrim.c \
 	  srcs/str/ft_strmapi.c \
 	  srcs/str/ft_striteri.c \
+	  srcs/str/ft_strrev_bonus.c \
 	  srcs/put/ft_putchar_fd.c \
 	  srcs/put/ft_putstr_fd.c \
 	  srcs/put/ft_putendl_fd.c \

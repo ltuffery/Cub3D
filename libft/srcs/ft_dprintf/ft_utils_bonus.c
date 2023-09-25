@@ -6,11 +6,11 @@
 /*   By: chmartin <chmartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:06:31 by chmartin          #+#    #+#             */
-/*   Updated: 2023/09/19 17:32:57 by chmartin         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:46:21 by chmartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_dprintf.h"
+#include "../libft.h"
 
 int	_ft_atoi(const char **s)
 {
@@ -22,7 +22,7 @@ int	_ft_atoi(const char **s)
 	return (nbr);
 }
 
-int	_ft_itoa(char *buf, unsigned long nbr, int base, int lower)
+int	_itoa(char *buf, unsigned long nbr, int base, int lower)
 {
 	static const char	digits[16] = "0123456789ABCDEF";
 	char				*ptr;
