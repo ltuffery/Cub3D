@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:26:27 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 14:33:06 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:42:38 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	move_rigth(t_data *data)
 	float	rad;
 
 	rad = data->player->direction->degree * PI / 180;
-	tmpx = data->player->x + SPEED * cosf(rad);
+	tmpx = data->player->x - SPEED * cosf(rad - PI / 2);
 	if (data->map->content[(int)data->player->y][(int)tmpx] != '1')
 		data->player->x = tmpx;
-	tmpy = data->player->y + SPEED * sinf(rad);
+	tmpy = data->player->y - SPEED * sinf(rad - PI / 2);
 	if (data->map->content[(int)tmpy][(int)data->player->x] != '1')
 		data->player->y = tmpy;
 }
@@ -62,10 +62,10 @@ void	move_left(t_data *data)
 	float	rad;
 
 	rad = data->player->direction->degree * PI / 180;
-	tmpx = data->player->x - SPEED * cosf(rad);
+	tmpx = data->player->x + SPEED * cosf(rad - PI / 2);
 	if (data->map->content[(int)data->player->y][(int)tmpx] != '1')
 		data->player->x = tmpx;
-	tmpy = data->player->y - SPEED * sinf(rad);
+	tmpy = data->player->y + SPEED * sinf(rad - PI / 2);
 	if (data->map->content[(int)tmpy][(int)data->player->x] != '1')
 		data->player->y = tmpy;
 }
