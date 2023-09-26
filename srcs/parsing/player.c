@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:02:24 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 11:39:06 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:11:35 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	insert_direction(t_player *player, t_map **map, int i, int j)
 {
 	player->direction->find = 1;
 	if ((*map)->content[i][j] == 'N')
-		player->direction->degree = 90;
-	else if ((*map)->content[i][j] == 'S')
 		player->direction->degree = 270;
+	else if ((*map)->content[i][j] == 'S')
+		player->direction->degree = 90;
 	else if ((*map)->content[i][j] == 'W')
 		player->direction->degree = 180;
 	else if ((*map)->content[i][j] == 'E')
