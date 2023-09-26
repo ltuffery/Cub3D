@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 17:18:56 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:21:54 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,15 @@
 # define TITLE "CUB3D"
 # define SPEED 0.2
 
+typedef struct s_direction {
+	int		find;
+	float	degree;
+}	t_direction;
+
 typedef struct s_player {
-	float	x;
-	float	y;
-	float	direction;
+	float		x;
+	float		y;
+	t_direction	*direction;
 }	t_player;
 
 typedef struct s_map {
