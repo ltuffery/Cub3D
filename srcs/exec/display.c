@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 11:46:13 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:14:14 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,27 @@ static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)
 
 #include <stdio.h>
 
+static int	colision(float x, float y, char **map)
+{
+	return (map[(int)y][(int)x] == '1');
+}
+
 static void	display_player_view(t_player *player, t_data *data, char shift)
 {
     double longueur, dx, dy, x, y;
-    if (fabs((player->x + cosf((player->direction->degree + shift) * PI / 180) * 25) - player->x) >= fabs((player->y + sinf((player->direction->degree + shift) * PI / 180) * 25) - player->y)) {
-        longueur = fabs((player->x + cosf((player->direction->degree + shift) * PI / 180) * 25) - player->x);
-    } else {
-        longueur = fabs((player->y + sinf((player->direction->degree + shift) * PI / 180) * 25) - player->y);
-    }
 
-    dx = ((player->x + cosf((player->direction->degree + shift) * PI / 180) * 25) - player->x) / longueur;
-    dy = ((player->y + sinf((player->direction->degree + shift) * PI / 180) * 25) - player->y) / longueur;
-    x = player->x * 15;
-    y = player->y * 15;
-    //int i = 1;
-
-    while (data->map->content[(int)(y / 15)][(int)(x / 15)] != '1') {
+	longueur = 200;
+    dx = ((player->x + cosf((player->direction->degree + shift) * PI / 180)) - player->x) / longueur;
+    dy = ((player->y + sinf((player->direction->degree + shift) * PI / 180)) - player->y) / longueur;
+    x = player->x;
+    y = player->y;
+	//int i = 1;
+    while (!colision(x + dx, y, data->map->content) && !colision(x, y + dy, data->map->content)) {
         x += dx;
         y += dy;
 		if (y > 0 && x > 0)
-			mlx_put_pixel(data->image, x, y, 0x00FF00FF);
-        //i++;
+			mlx_put_pixel(data->image, x * 15, y * 15, 0x00FF00FF);
+		//i++;
     }
 }
 
@@ -71,7 +71,7 @@ void	display_player(t_data *data)
 	int		xx;
 	int		yy;
 	int		d;
-	char	shift;
+	float	shift;
 
 	yy = 0;
 	d = 10;
@@ -90,7 +90,7 @@ void	display_player(t_data *data)
 	while (shift < 60)
 	{
 		display_player_view(data->player, data, shift - 30);
-		shift++;
+		shift += 60.0 / WIDTH;
 	}
 }
 
