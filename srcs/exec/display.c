@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 11:41:50 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:46:13 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)
 static void	display_player_view(t_player *player, t_data *data, char shift)
 {
     double longueur, dx, dy, x, y;
-    if (fabs((player->x + cosf((player->direction->degree + shift) * (PI / 180)) * 25) - player->x) >= fabs((player->y + sinf((player->direction->degree + shift) * (PI / 180)) * 25) - player->y)) {
-        longueur = fabs((player->x + cosf((player->direction->degree + shift) * (PI / 180)) * 25) - player->x);
+    if (fabs((player->x + cosf((player->direction->degree + shift) * PI / 180) * 25) - player->x) >= fabs((player->y + sinf((player->direction->degree + shift) * PI / 180) * 25) - player->y)) {
+        longueur = fabs((player->x + cosf((player->direction->degree + shift) * PI / 180) * 25) - player->x);
     } else {
-        longueur = fabs((player->y + sinf((player->direction->degree + shift) * (PI / 180)) * 25) - player->y);
+        longueur = fabs((player->y + sinf((player->direction->degree + shift) * PI / 180) * 25) - player->y);
     }
 
-    dx = ((player->x + cosf((player->direction->degree + shift) * (PI / 180)) * 25) - player->x) / longueur;
-    dy = ((player->y + sinf((player->direction->degree + shift) * (PI / 180)) * 25) - player->y) / longueur;
+    dx = ((player->x + cosf((player->direction->degree + shift) * PI / 180) * 25) - player->x) / longueur;
+    dy = ((player->y + sinf((player->direction->degree + shift) * PI / 180) * 25) - player->y) / longueur;
     x = player->x * 15;
     y = player->y * 15;
     //int i = 1;
