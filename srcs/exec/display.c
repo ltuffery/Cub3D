@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 14:25:57 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:52:43 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,26 @@ static int	colision(float x, float y, char **map)
 
 static void	display_player_view(t_player *player, t_data *data, char shift)
 {
-    double longueur, dx, dy, x, y;
+	double	longueur;
+	double	dx;
+	double	dy;
+	double	x;
+	double	y;
 
 	longueur = 200;
-    dx = (player->x + cosf((player->direction->degree + shift) * PI / 180) - player->x) / longueur;
-    dy = (player->y + sinf((player->direction->degree + shift) * PI / 180) - player->y) / longueur;
-    x = player->x;
-    y = player->y;
-	//int i = 1;
-    while (!colision(x + dx, y, data->map->content) && !colision(x, y + dy, data->map->content)) {
-        x += dx;
-        y += dy;
+	dx = (player->x + cosf((player->direction->degree + shift) * PI / 180) \
+			- player->x) / longueur;
+	dy = (player->y + sinf((player->direction->degree + shift) * PI / 180) \
+			- player->y) / longueur;
+	x = player->x;
+	y = player->y;
+	while (!colision(x + dx, y, data->map->content) && \
+			!colision(x, y + dy, data->map->content))
+	{
+		x += dx;
+		y += dy;
 		if (y > 0 && x > 0)
 			mlx_put_pixel(data->image, x * 15, y * 15, 0x00FF00FF);
-		//i++;
     }
 }
 
