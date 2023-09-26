@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 14:14:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:25:57 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)
 	}
 }
 
-#include <stdio.h>
-
 static int	colision(float x, float y, char **map)
 {
 	return (map[(int)y][(int)x] == '1');
@@ -52,8 +50,8 @@ static void	display_player_view(t_player *player, t_data *data, char shift)
     double longueur, dx, dy, x, y;
 
 	longueur = 200;
-    dx = ((player->x + cosf((player->direction->degree + shift) * PI / 180)) - player->x) / longueur;
-    dy = ((player->y + sinf((player->direction->degree + shift) * PI / 180)) - player->y) / longueur;
+    dx = (player->x + cosf((player->direction->degree + shift) * PI / 180) - player->x) / longueur;
+    dy = (player->y + sinf((player->direction->degree + shift) * PI / 180) - player->y) / longueur;
     x = player->x;
     y = player->y;
 	//int i = 1;
