@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 11:21:54 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:38:35 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define HEIGHT 720
 # define TITLE "CUB3D"
 # define SPEED 0.2
+# define PI 3.141592654
 
 typedef struct s_direction {
 	int		find;
