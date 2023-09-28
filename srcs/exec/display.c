@@ -6,13 +6,14 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/28 18:39:46 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:46:41 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "MLX42/MLX42.h"
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)

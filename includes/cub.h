@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/28 18:38:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:51:02 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_ray {
-	float 	x;
-	float 	y;
+	float	x;
+	float	y;
 	int		len;
 }	t_ray;
 

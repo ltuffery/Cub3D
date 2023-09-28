@@ -6,11 +6,12 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:02:24 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 14:54:30 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:50:05 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static void	insert_direction(t_player *player, t_map **map, int i, int j)
@@ -44,22 +45,18 @@ void	set_player(t_map **map)
 	player = malloc(sizeof(t_player) * 1);
 	if (player == NULL)
 		return ;
-	direction = malloc(sizeof(t_direction));
+	direction = ft_calloc(sizeof(t_direction), 1);
 	if (direction == NULL)
 		return ;
 	player->direction = direction;
-	while ((*map)->content[i] != NULL)
+	while ((*map)->content[i] != NULL && player->direction->find == 0)
 	{
 		j = 0;
-		while ((*map)->content[i][j] != '\0')
+		while ((*map)->content[i][j] != '\0' && player->direction->find == 0)
 		{
 			insert_direction(player, map, i, j);
-			if (player->direction->find)
-				break ;
 			j++;
 		}
-		if (player->direction->find)
-			break ;
 		i++;
 	}
 	(*map)->player = player;
