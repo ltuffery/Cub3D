@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/28 18:46:41 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:55:43 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,29 +76,31 @@ static t_ray	*display_player_view(t_player *player, t_data *data, char shift)
 
 void	display_player(t_data *data)
 {
-	int		xx;
-	int		yy;
-	int		d;
-	float	shift;
+	t_vector	vec;
+	int			d;
+	float		shift;
+	t_ray		*rays[WIDTH];
 
-	yy = 0;
+	vec.y = 0;
 	d = 10;
 	shift = 0;
-	while (yy < d)
+	while (vec.y < d)
 	{
-		xx = 0;
-		while (xx < d)
+		vec.x = 0;
+		while (vec.x < d)
 		{
-			mlx_put_pixel(data->image, xx + data->player->x * 15 - 5, \
-					yy + data->player->y * 15 - 5, 0xFF0000FF);
-			xx++;
+			mlx_put_pixel(data->image, vec.x + data->player->x * 15 - 5, \
+					vec.y + data->player->y * 15 - 5, 0xFF0000FF);
+			vec.x++;
 		}
-		yy++;
+		vec.y++;
 	}
+	vec.y = 0;
 	while (shift < 60)
 	{
-		display_player_view(data->player, data, shift - 30);
+		rays[(int)vec.y] = display_player_view(data->player, data, shift - 30);
 		shift += 60.0 / WIDTH;
+		vec.y++;
 	}
 }
 
