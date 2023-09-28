@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 11:38:35 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:38:14 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define TITLE "CUB3D"
 # define SPEED 0.2
 # define PI 3.141592654
+# define LENGTH 200
 
 typedef struct s_direction {
 	int		find;
@@ -54,6 +55,17 @@ typedef struct s_data {
 	mlx_image_t	*image;
 	t_player	*player;
 }	t_data;
+
+typedef struct s_ray {
+	float 	x;
+	float 	y;
+	int		len;
+}	t_ray;
+
+typedef struct s_vector {
+	double	x;
+	double	y;
+}	t_vector;
 
 int		is_texture_line(char *line);
 void	insert_texture(t_map **map, char *line);

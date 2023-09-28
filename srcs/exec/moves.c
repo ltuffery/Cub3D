@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:26:27 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 14:42:38 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:23:03 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	move_back(t_data *data)
 {
 	move(data, -1, -1);
 }
-
-#define TRUC 67.5
 
 void	move_rigth(t_data *data)
 {

@@ -6,13 +6,14 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/26 14:52:43 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:39:46 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "MLX42/MLX42.h"
 #include <math.h>
+#include <stdlib.h>
 
 static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)
 {
@@ -45,29 +46,31 @@ static int	colision(float x, float y, char **map)
 	return (map[(int)y][(int)x] == '1');
 }
 
-static void	display_player_view(t_player *player, t_data *data, char shift)
+static t_ray	*display_player_view(t_player *player, t_data *data, char shift)
 {
-	double	longueur;
-	double	dx;
-	double	dy;
-	double	x;
-	double	y;
+	t_vector	vec;
+	t_ray		*ray;
 
-	longueur = 200;
-	dx = (player->x + cosf((player->direction->degree + shift) * PI / 180) \
-			- player->x) / longueur;
-	dy = (player->y + sinf((player->direction->degree + shift) * PI / 180) \
-			- player->y) / longueur;
-	x = player->x;
-	y = player->y;
-	while (!colision(x + dx, y, data->map->content) && \
-			!colision(x, y + dy, data->map->content))
+	ray = malloc(sizeof(t_ray));
+	if (ray == NULL)
+		return (NULL);
+	vec.x = (player->x + cosf((player->direction->degree + shift) * PI / 180) \
+			- player->x) / LENGTH;
+	vec.y = (player->y + sinf((player->direction->degree + shift) * PI / 180) \
+			- player->y) / LENGTH;
+	ray->x = player->x;
+	ray->y = player->y;
+	ray->len = 0;
+	while (!colision(ray->x + vec.x, ray->y, data->map->content) && \
+			!colision(ray->x, ray->y + vec.y, data->map->content))
 	{
-		x += dx;
-		y += dy;
-		if (y > 0 && x > 0)
-			mlx_put_pixel(data->image, x * 15, y * 15, 0x00FF00FF);
-    }
+		ray->x += vec.x;
+		ray->y += vec.y;
+		if (ray->y > 0 && ray->x > 0)
+			mlx_put_pixel(data->image, ray->x * 15, ray->y * 15, 0x00FF00FF);
+		ray->len++;
+	}
+	return (ray);
 }
 
 void	display_player(t_data *data)
