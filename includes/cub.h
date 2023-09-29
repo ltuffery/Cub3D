@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/28 18:51:02 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:48:29 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # define SPEED 0.2
 # define PI 3.141592654
 # define LENGTH 200
+
+typedef struct s_ray {
+	float	x;
+	float	y;
+	int		len;
+}	t_ray;
 
 typedef struct s_direction {
 	int		find;
@@ -54,13 +60,8 @@ typedef struct s_data {
 	float		fps;
 	mlx_image_t	*image;
 	t_player	*player;
+	t_ray		*rays[WIDTH + 1];
 }	t_data;
-
-typedef struct s_ray {
-	float	x;
-	float	y;
-	int		len;
-}	t_ray;
 
 typedef struct s_vector {
 	double	x;
@@ -91,5 +92,10 @@ void	move_forward(t_data *data);
 void	move_back(t_data *data);
 void	move_rigth(t_data *data);
 void	move_left(t_data *data);
+
+/*	clean utils	*/
+void	clean_map(t_map *map);
+void	clean_data(t_data *data);
+void	clean_rays(t_data *data);
 
 #endif

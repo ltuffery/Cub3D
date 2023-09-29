@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/20 16:50:24 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:08:29 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "cub.h"
 #include <fcntl.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 static void	valid_number_argv(int ac)
@@ -37,31 +38,7 @@ static void	valid_extension(char *file)
 	}
 }
 
-static void	clean_map(t_map *map)
-{
-	int	i;
 
-	if (map->no != NULL)
-		free(map->no);
-	if (map->we != NULL)
-		free(map->we);
-	if (map->ea != NULL)
-		free(map->ea);
-	if (map->so != NULL)
-		free(map->so);
-	if (map->content != NULL)
-	{
-		i = 0;
-		while (map->content[i] != NULL)
-		{
-			free(map->content[i]);
-			i++;
-		}
-		free(map->content);
-	}
-	if (map->player != NULL)
-		free(map->player);
-}
 
 static int	is_all_good(t_map *map)
 {
@@ -94,6 +71,5 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	launcher(&map);
-	clean_map(&map);
 	close(map.fd);
 }

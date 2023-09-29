@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 09:05:50 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/28 18:52:19 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:27:36 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	ft_hook(void *data)
 	if (has_key_down(data))
 	{
 		display_map(data);
+		clean_rays(data);
 		display_player(data);
 	}
 }
@@ -78,6 +79,7 @@ void	launcher(t_map *map)
 	data.fps = 0;
 	data.image = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	data.player = data.map->player;
+	data.rays[0] = NULL;
 	display_map(&data);
 	display_player(&data);
 	mlx_loop_hook(data.mlx, &ft_hook, &data);
@@ -85,4 +87,5 @@ void	launcher(t_map *map)
 	mlx_image_to_window(data.mlx, data.image, 0, 0);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
+	clean_data(&data);
 }

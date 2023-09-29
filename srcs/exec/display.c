@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/28 18:55:43 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:45:49 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	display_player(t_data *data)
 	t_vector	vec;
 	int			d;
 	float		shift;
-	t_ray		*rays[WIDTH];
 
 	vec.y = 0;
 	d = 10;
@@ -98,10 +97,11 @@ void	display_player(t_data *data)
 	vec.y = 0;
 	while (shift < 60)
 	{
-		rays[(int)vec.y] = display_player_view(data->player, data, shift - 30);
+		data->rays[(int)vec.y] = display_player_view(data->player, data, shift - 30);
 		shift += 60.0 / WIDTH;
 		vec.y++;
 	}
+	data->rays[(int)vec.y] = NULL;
 }
 
 void	display_map(t_data *data)
