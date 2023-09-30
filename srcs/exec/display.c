@@ -6,13 +6,14 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/29 18:41:44 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:13:44 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "MLX42/MLX42.h"
 #include <math.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -47,7 +48,7 @@ static int	colision(float x, float y, char **map)
 	return (map[(int)y][(int)x] == '1');
 }
 
-static t_ray	*display_player_view(t_player *player, t_data *data, char shift)
+static t_ray	*display_player_view(t_player *player, t_data *data, float shift)
 {
 	t_vector	vec;
 	t_ray		*ray;
@@ -69,8 +70,8 @@ static t_ray	*display_player_view(t_player *player, t_data *data, char shift)
 		ray->y += vec.y;
 		// if (ray->y > 0 && ray->x > 0)
 		// 	 mlx_put_pixel(data->image, ray->x * 15, ray->y * 15, 0x00FF00FF);
-		ray->len++;
 	}
+	ray->len = sqrtf(powf((player->x - ray->x), 2) + powf((player->y - ray->y), 2));
 	ray->side = colision(ray->x + vec.x, ray->y, data->map->content);
 	return (ray);
 }
@@ -139,6 +140,7 @@ void	display_map(t_data *data)
 	int	i;
 	int	j;
 	unsigned int	color;
+	float			calc;
 
 	i = 0;
 	while (i < WIDTH)
@@ -146,7 +148,7 @@ void	display_map(t_data *data)
 		j = 0;
 		while (j < HEIGHT)
 		{
-			if (j > HEIGHT / 2)
+			if (j < HEIGHT / 2)
 				mlx_put_pixel(data->image, i, j, data->map->ceiling);
 			else
 				mlx_put_pixel(data->image, i, j, data->map->floor);
@@ -160,9 +162,14 @@ void	display_map(t_data *data)
 		if (data->rays[i]->side)
 			color = 0xFFFFFFFF;
 		else
-			color = 0xF1F1F1FF;
-		dda(data->image, i, HEIGHT / data->rays[i]->y / 2 + HEIGHT / 2.0, \
-				i, HEIGHT / data->rays[i]->y / 2 - HEIGHT / 2.0, color);
+			color = 0xD1D1D1FF;
+		calc = 400.0 / (data->rays[i]->len);
+		if (calc < 0)
+			calc = 0;
+		else if (calc > (HEIGHT / 2.0))
+			calc = (HEIGHT / 2.0) - 1;
+		dda(data->image, i, HEIGHT / 2.0 - calc, \
+				i, HEIGHT / 2.0 + calc, color);
 		i++;
 	}
 }
