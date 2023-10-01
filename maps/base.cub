@@ -1,0 +1,14 @@
+NO ./maps/textures/basic.png
+SO ./maps/textures/basic.png
+WE ./maps/textures/basic.png
+EA ./maps/textures/basic.png
+
+F 0,0,0
+C 200,0,0
+
+1111111
+1011101
+1001001
+1000001
+1N00001
+1111111

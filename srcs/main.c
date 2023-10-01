@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/29 17:08:29 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:31:31 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static void	valid_extension(char *file)
 		exit(1);
 	}
 }
-
-
 
 static int	is_all_good(t_map *map)
 {

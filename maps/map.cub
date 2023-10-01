@@ -3,8 +3,8 @@ SO ./maps/textures/basic.png
 WE ./maps/textures/basic.png
 EA ./maps/textures/basic.png
 
-F 225,255,255
-C 255,0,0
+F 0,0,255
+C 200,200,0
 
               1111111111111111111111111111
               10000000000000000000000000011

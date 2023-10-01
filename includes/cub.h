@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/29 16:48:29 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:03:31 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@
 # define WIDTH 1080
 # define HEIGHT 720
 # define TITLE "CUB3D"
-# define SPEED 0.2
+# define SPEED 0.02
 # define PI 3.141592654
 # define LENGTH 200
 
 typedef struct s_ray {
 	float	x;
 	float	y;
-	int		len;
+	float	len;
+	int		side;
 }	t_ray;
 
 typedef struct s_direction {
