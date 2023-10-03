@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/30 19:13:44 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/03 20:10:05 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,10 @@ void	display_player(t_data *data)
 	data->rays[(int)vec.y] = NULL;
 }
 
-static void	dda(mlx_image_t *image, float x1, float y1, float x2, float y2, unsigned int color)
+static void	dda(t_data *data, float x1, float y1, float x2, float y2, t_ray *ray)
 {
     double longueur, dx, dy, x, y;
+	unsigned int	color;
     if (fabs(x2 - x1) >= fabs(y2 - y1)) {
         longueur = fabs(x2 - x1);
     } else {
@@ -117,20 +118,26 @@ static void	dda(mlx_image_t *image, float x1, float y1, float x2, float y2, unsi
 
     dx = (x2 - x1) / longueur;
     dy = (y2 - y1) / longueur;
-    x = x1 + 0.5;
-    y = y1 + 0.5;
+    x = x1;
+    y = y1;
     int i = 1;
+	int	cor_x;
+	int	cor_y;
 
     while (i <= longueur) {
-        // Utilisez la fonction setPixel(E(x), E(y)) pour dessiner le pixel
-        // Remarque : La fonction E(x) et E(y) n'est pas définie dans l'algorithme initial.
-        // Vous devez la remplacer par la fonction appropriée ou la logique de dessin de pixel.
-        // setPixel(E(x), E(y));
-        
         x += dx;
         y += dy;
+		cor_x = (int)((ray->x - (int)ray->x) * data->map->no->width) * 4;
+		if (ray->side)
+			cor_x = (int)((ray->y - (int)ray->y) * data->map->no->width) * 4;
+		cor_y = (float)(i) / longueur * data->map->no->height;
+		cor_x += cor_y * data->map->no->width * 4;
+		color = data->map->no->pixels[cor_x] << 24;
+		color |= data->map->no->pixels[cor_x + 1] << 16;
+		color |= data->map->no->pixels[cor_x + 2] << 8;
+		color |= data->map->no->pixels[cor_x + 3];
 		if (y > 0 && x > 0)
-		 	mlx_put_pixel(image, x, y, color);
+		 	mlx_put_pixel(data->image, x, y, color);
         i++;
     }
 }
@@ -139,7 +146,7 @@ void	display_map(t_data *data)
 {
 	int	i;
 	int	j;
-	unsigned int	color;
+	//unsigned int	color;
 	float			calc;
 
 	i = 0;
@@ -159,17 +166,17 @@ void	display_map(t_data *data)
 	i = 0;
 	while (i < WIDTH)
 	{
-		if (data->rays[i]->side)
+		/*if (data->rays[i]->side)
 			color = 0xFFFFFFFF;
 		else
-			color = 0xD1D1D1FF;
+			color = 0xD1D1D1FF;*/
 		calc = 400.0 / (data->rays[i]->len);
 		if (calc < 0)
 			calc = 0;
 		else if (calc > (HEIGHT / 2.0))
 			calc = (HEIGHT / 2.0) - 1;
-		dda(data->image, i, HEIGHT / 2.0 - calc, \
-				i, HEIGHT / 2.0 + calc, color);
+		dda(data, i, HEIGHT / 2.0 - calc, \
+				i, HEIGHT / 2.0 + calc, data->rays[i]);
 		i++;
 	}
 }

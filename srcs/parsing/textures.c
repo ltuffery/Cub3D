@@ -6,13 +6,15 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:12:45 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/13 12:39:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/03 19:18:26 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/MLX42.h"
 #include "cub.h"
 #include "get_next_line.h"
 #include "libft.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 
@@ -41,11 +43,11 @@ static int	valid_path(char *path)
 	return (fd != -1);
 }
 
-static void	assign(char **a, char *b)
+static void	assign(mlx_texture_t **a, char *b)
 {
 	if ((*a) != NULL)
 		free(*a);
-	(*a) = ft_strdup(b);
+	(*a) = mlx_load_png(b);
 }
 
 int	is_texture_line(char *line)

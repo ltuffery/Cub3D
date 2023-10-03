@@ -1,7 +1,7 @@
-NO ./maps/textures/basic.png
-SO ./maps/textures/basic.png
-WE ./maps/textures/basic.png
-EA ./maps/textures/basic.png
+NO ./maps/textures/texture5.png
+SO ./maps/textures/texture2.png
+WE ./maps/textures/texture3.png
+EA ./maps/textures/texture4.png
 
 F 0,0,0
 C 200,0,0
