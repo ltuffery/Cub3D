@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/03 21:05:06 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:17:12 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,34 +69,41 @@ typedef struct s_vector {
 	double	y;
 }	t_vector;
 
-int		is_texture_line(char *line);
-void	insert_texture(t_map **map, char *line);
-int		is_color_line(char *line);
-void	insert_color(t_map **map, char *line);
-int		is_map_line(char *line);
-void	insert_map(t_map **map, char *line);
-void	set_player(t_map **map);
-int		is_valid_map(char **content);
-void	setup_config(t_map *map);
+int				is_texture_line(char *line);
+void			insert_texture(t_map **map, char *line);
+int				is_color_line(char *line);
+void			insert_color(t_map **map, char *line);
+int				is_map_line(char *line);
+void			insert_map(t_map **map, char *line);
+void			set_player(t_map **map);
+int				is_valid_map(char **content);
+void			setup_config(t_map *map);
 
-char	*fill_str(char *str, char fill, size_t max);
-size_t	find_max_len(char **content);
+char			*fill_str(char *str, char fill, size_t max);
+size_t			find_max_len(char **content);
 
 /*	Exec	*/
 
-void	launcher(t_map *map);
-void	display_player(t_data *data);
-void	display_map(t_data *data);
+void			launcher(t_map *map);
+void			display_player(t_data *data);
+void			display_map(t_data *data);
 
 /*	moves	*/
-void	move_forward(t_data *data);
-void	move_back(t_data *data);
-void	move_rigth(t_data *data);
-void	move_left(t_data *data);
+void			move_forward(t_data *data);
+void			move_back(t_data *data);
+void			move_rigth(t_data *data);
+void			move_left(t_data *data);
 
 /*	clean utils	*/
-void	clean_map(t_map *map);
-void	clean_data(t_data *data);
-void	clean_rays(t_data *data);
+void			clean_map(t_map *map);
+void			clean_data(t_data *data);
+void			clean_rays(t_data *data);
+
+/*	display utils	*/
+mlx_texture_t	*get_texture_face(t_data *data, t_ray *ray);
+int				get_pixel_point(mlx_texture_t *texture, t_ray *ray, \
+		t_player *player, float y);
+unsigned int	get_pixel_color(uint8_t *pixels, int point);
+void			draw_bg(mlx_image_t *image, unsigned int flr, unsigned int clg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/03 21:50:41 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:20:56 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,54 +65,7 @@ void	display_player(t_data *data)
 	data->rays[i] = NULL;
 }
 
-static mlx_texture_t	*get_texture_face(t_data *data, t_ray *ray)
-{
-	if (!ray->side)
-	{
-		if (ray->y > data->player->y)
-			return (data->map->so);
-		else
-			return (data->map->no);
-	}
-	else
-	{
-		if (ray->x < data->player->x)
-			return (data->map->we);
-		else
-			return (data->map->ea);
-	}
-}
-
-static int	get_pixel_point(mlx_texture_t *texture, t_ray *ray, \
-		t_player *player, float y)
-{
-	int	cor_x;
-
-	cor_x = (ray->x - (int)ray->x) * texture->width;
-	cor_x *= 4;
-	if (ray->side)
-	{
-		cor_x = (ray->y - (int)ray->y) * texture->width;
-		cor_x *= 4;
-	}
-	if ((ray->side && ray->x < player->x) || (!ray->side && ray->y > player->y))
-		cor_x = (texture->width - 1) * 4 - cor_x;
-	cor_x += (int)(y * texture->height) * texture->width * 4;
-	return (cor_x);
-}
-
-static unsigned int	get_pixel_color(uint8_t *pixels, int point)
-{
-	unsigned int	color;
-
-	color = pixels[point] << 24;
-	color |= pixels[point + 1] << 16;
-	color |= pixels[point + 2] << 8;
-	color |= pixels[point + 3];
-	return (color);
-}
-
-static void	dda(t_data *data, float x, float y1, float y2, t_ray *ray)
+static void	dda(t_data *data, int x, float y1, float y2)
 {
 	double			longueur;
 	unsigned int	color;
@@ -122,35 +75,15 @@ static void	dda(t_data *data, float x, float y1, float y2, t_ray *ray)
 
 	longueur = fabsl(y2 - y1);
 	i = 1;
-	texture = get_texture_face(data, ray);
+	texture = get_texture_face(data, data->rays[x]);
 	while (i <= longueur)
 	{
 		y1 += 1.0;
-		cor_x = get_pixel_point(texture, ray, data->player, i / longueur);
+		cor_x = get_pixel_point(texture, data->rays[x], \
+				data->player, i / longueur);
 		color = get_pixel_color(texture->pixels, cor_x);
 		if (y1 > 0 && x > 0 && (int)y1 < HEIGHT)
 			mlx_put_pixel(data->image, x, y1, color);
-		i++;
-	}
-}
-
-static void	draw_bg(mlx_image_t *image, unsigned int flr, unsigned int clg)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < WIDTH)
-	{
-		j = 0;
-		while (j < HEIGHT)
-		{
-			if (j < HEIGHT / 2)
-				mlx_put_pixel(image, i, j, clg);
-			else
-				mlx_put_pixel(image, i, j, flr);
-			j++;
-		}
 		i++;
 	}
 }
@@ -169,8 +102,7 @@ void	display_map(t_data *data)
 			calc = 0;
 		else if (calc > (float)HEIGHT)
 			calc = HEIGHT;
-		dda(data, i, HEIGHT / 2.0 - calc, \
-				HEIGHT / 2.0 + calc, data->rays[i]);
+		dda(data, i, HEIGHT / 2.0 - calc, HEIGHT / 2.0 + calc);
 		i++;
 	}
 }
