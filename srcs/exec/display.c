@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/30 19:13:44 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:20:56 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,16 @@
 #include "MLX42/MLX42.h"
 #include <math.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-/*static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)
-{
-	int	xx;
-	int	yy;
-	int	d;
-
-	yy = 0;
-	if (type_chunk == 1)
-	d = 10;
-	else
-		d = 15;
-	while (yy < d)
-	{
-		xx = 0;
-		while (xx < d)
-		{
-			if (type_chunk == 0)
-				mlx_put_pixel(image, xx + (x * d), yy + (y * d), 0xFFFFFFFF);
-			else
-				mlx_put_pixel(image, xx + (x * d), yy + (y * d), 0x000000FF);
-			xx++;
-		}
-		yy++;
-	}
-}*/
 
 static int	colision(float x, float y, char **map)
 {
 	return (map[(int)y][(int)x] == '1');
 }
 
-static t_ray	*display_player_view(t_player *player, t_data *data, float shift)
+static t_ray	*display_player_view(t_player *p, t_data *data, float shift)
 {
 	t_vector	vec;
 	t_ray		*ray;
@@ -56,120 +31,78 @@ static t_ray	*display_player_view(t_player *player, t_data *data, float shift)
 	ray = malloc(sizeof(t_ray));
 	if (ray == NULL)
 		return (NULL);
-	vec.x = (player->x + cosf((player->direction->degree + shift) * PI / 180) \
-			- player->x) / LENGTH;
-	vec.y = (player->y + sinf((player->direction->degree + shift) * PI / 180) \
-			- player->y) / LENGTH;
-	ray->x = player->x;
-	ray->y = player->y;
+	vec.x = (p->x + cosf((p->direction->degree + shift) * PI / 180) \
+			- p->x) / LENGTH;
+	vec.y = (p->y + sinf((p->direction->degree + shift) * PI / 180) \
+			- p->y) / LENGTH;
+	ray->x = p->x;
+	ray->y = p->y;
 	ray->len = 0;
 	while (!colision(ray->x + vec.x, ray->y, data->map->content) && \
 			!colision(ray->x, ray->y + vec.y, data->map->content))
 	{
 		ray->x += vec.x;
 		ray->y += vec.y;
-		// if (ray->y > 0 && ray->x > 0)
-		// 	 mlx_put_pixel(data->image, ray->x * 15, ray->y * 15, 0x00FF00FF);
 	}
-	ray->len = sqrtf(powf((player->x - ray->x), 2) + powf((player->y - ray->y), 2));
+	ray->len = sqrtf(powf((p->x - ray->x), 2) + powf((p->y - ray->y), 2));
 	ray->side = colision(ray->x + vec.x, ray->y, data->map->content);
 	return (ray);
 }
 
 void	display_player(t_data *data)
 {
-	t_vector	vec;
-	int			d;
-	float		shift;
+	int		i;
+	float	shift;
 
-	vec.y = 0;
-	d = 10;
 	shift = 0;
-	while (vec.y < d)
-	{
-		vec.x = 0;
-		while (vec.x < d)
-		{
-			//mlx_put_pixel(data->image, vec.x + data->player->x * 15 - 5, \
-			//		vec.y + data->player->y * 15 - 5, 0xFF0000FF);
-			vec.x++;
-		}
-		vec.y++;
-	}
-	vec.y = 0;
+	i = 0;
 	while (shift < 60)
 	{
-		data->rays[(int)vec.y] = display_player_view(data->player, data, shift - 30);
+		data->rays[i] = display_player_view(data->player, data, shift - 30);
 		shift += 60.0 / WIDTH;
-		vec.y++;
+		i++;
 	}
-	data->rays[(int)vec.y] = NULL;
+	data->rays[i] = NULL;
 }
 
-static void	dda(mlx_image_t *image, float x1, float y1, float x2, float y2, unsigned int color)
+static void	dda(t_data *data, int x, float y1, float y2)
 {
-    double longueur, dx, dy, x, y;
-    if (fabs(x2 - x1) >= fabs(y2 - y1)) {
-        longueur = fabs(x2 - x1);
-    } else {
-        longueur = fabs(y2 - y1);
-    }
+	double			longueur;
+	unsigned int	color;
+	mlx_texture_t	*texture;
+	int				i;
+	int				cor_x;
 
-    dx = (x2 - x1) / longueur;
-    dy = (y2 - y1) / longueur;
-    x = x1 + 0.5;
-    y = y1 + 0.5;
-    int i = 1;
-
-    while (i <= longueur) {
-        // Utilisez la fonction setPixel(E(x), E(y)) pour dessiner le pixel
-        // Remarque : La fonction E(x) et E(y) n'est pas définie dans l'algorithme initial.
-        // Vous devez la remplacer par la fonction appropriée ou la logique de dessin de pixel.
-        // setPixel(E(x), E(y));
-        
-        x += dx;
-        y += dy;
-		if (y > 0 && x > 0)
-		 	mlx_put_pixel(image, x, y, color);
-        i++;
-    }
+	longueur = fabsl(y2 - y1);
+	i = 1;
+	texture = get_texture_face(data, data->rays[x]);
+	while (i <= longueur)
+	{
+		y1 += 1.0;
+		cor_x = get_pixel_point(texture, data->rays[x], \
+				data->player, i / longueur);
+		color = get_pixel_color(texture->pixels, cor_x);
+		if (y1 > 0 && x > 0 && (int)y1 < HEIGHT)
+			mlx_put_pixel(data->image, x, y1, color);
+		i++;
+	}
 }
 
 void	display_map(t_data *data)
 {
-	int	i;
-	int	j;
-	unsigned int	color;
-	float			calc;
+	int		i;
+	float	calc;
 
 	i = 0;
+	draw_bg(data->image, data->map->floor, data->map->ceiling);
 	while (i < WIDTH)
 	{
-		j = 0;
-		while (j < HEIGHT)
-		{
-			if (j < HEIGHT / 2)
-				mlx_put_pixel(data->image, i, j, data->map->ceiling);
-			else
-				mlx_put_pixel(data->image, i, j, data->map->floor);
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < WIDTH)
-	{
-		if (data->rays[i]->side)
-			color = 0xFFFFFFFF;
-		else
-			color = 0xD1D1D1FF;
 		calc = 400.0 / (data->rays[i]->len);
 		if (calc < 0)
 			calc = 0;
-		else if (calc > (HEIGHT / 2.0))
-			calc = (HEIGHT / 2.0) - 1;
-		dda(data->image, i, HEIGHT / 2.0 - calc, \
-				i, HEIGHT / 2.0 + calc, color);
+		else if (calc > (float)HEIGHT)
+			calc = HEIGHT;
+		dda(data, i, HEIGHT / 2.0 - calc, HEIGHT / 2.0 + calc);
 		i++;
 	}
 }

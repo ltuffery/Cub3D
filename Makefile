@@ -6,7 +6,7 @@
 #    By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/06 09:07:25 by ltuffery          #+#    #+#              #
-#    Updated: 2023/09/29 16:41:41 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/10/03 22:17:32 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRCS	:= srcs/main.c \
 		   srcs/exec/launcher.c \
 		   srcs/exec/display.c \
 		   srcs/exec/moves.c \
-		   srcs/utils/clean_utils.c
+		   srcs/utils/clean_utils.c \
+		   srcs/utils/display_utils.c
 
 OBJS	:= ${SRCS:.c=.o}
 
