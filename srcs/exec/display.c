@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/03 20:10:05 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:12:42 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,34 @@ void	display_player(t_data *data)
 	data->rays[(int)vec.y] = NULL;
 }
 
-static void	dda(t_data *data, float x1, float y1, float x2, float y2, t_ray *ray)
+static mlx_texture_t	*get_texture_face(t_data *data, t_ray *ray)
 {
-    double longueur, dx, dy, x, y;
+	if (!ray->side)
+	{
+		if (ray->y > data->player->y)
+			return data->map->so;
+		else
+			return data->map->no;
+	}
+	else
+	{
+		if (ray->x < data->player->x)
+			return data->map->we;
+		else
+			return data->map->ea;
+	}
+}
+
+static void	dda(t_data *data, float x1, long double y1, float x2, long double y2, t_ray *ray)
+{
+    long double longueur, dx, dy, x, y;
 	unsigned int	color;
-    if (fabs(x2 - x1) >= fabs(y2 - y1)) {
-        longueur = fabs(x2 - x1);
+	mlx_texture_t	*texture;
+
+    if (fabsl(x2 - x1) >= fabsl(y2 - y1)) {
+        longueur = fabsl(x2 - x1);
     } else {
-        longueur = fabs(y2 - y1);
+        longueur = fabsl(y2 - y1);
     }
 
     dx = (x2 - x1) / longueur;
@@ -124,19 +144,22 @@ static void	dda(t_data *data, float x1, float y1, float x2, float y2, t_ray *ray
 	int	cor_x;
 	int	cor_y;
 
+	texture = get_texture_face(data, ray);
     while (i <= longueur) {
         x += dx;
         y += dy;
-		cor_x = (int)((ray->x - (int)ray->x) * data->map->no->width) * 4;
+		cor_x = (int)((ray->x - (int)ray->x) * texture->width) * 4;
 		if (ray->side)
-			cor_x = (int)((ray->y - (int)ray->y) * data->map->no->width) * 4;
-		cor_y = (float)(i) / longueur * data->map->no->height;
-		cor_x += cor_y * data->map->no->width * 4;
-		color = data->map->no->pixels[cor_x] << 24;
-		color |= data->map->no->pixels[cor_x + 1] << 16;
-		color |= data->map->no->pixels[cor_x + 2] << 8;
-		color |= data->map->no->pixels[cor_x + 3];
-		if (y > 0 && x > 0)
+			cor_x = (int)((ray->y - (int)ray->y) * texture->width) * 4;
+		if ((ray->side && ray->x < data->player->x) || (!ray->side && ray->y > data->player->y))
+			cor_x = (texture->width - 1) * 4 - cor_x;
+		cor_y = (float)(i) / longueur * texture->height;
+		cor_x += cor_y * texture->width * 4;
+		color = texture->pixels[cor_x] << 24;
+		color |= texture->pixels[cor_x + 1] << 16;
+		color |= texture->pixels[cor_x + 2] << 8;
+		color |= texture->pixels[cor_x + 3];
+		if (y > 0 && x > 0 && (int)y < HEIGHT)
 		 	mlx_put_pixel(data->image, x, y, color);
         i++;
     }
@@ -146,8 +169,7 @@ void	display_map(t_data *data)
 {
 	int	i;
 	int	j;
-	//unsigned int	color;
-	float			calc;
+	long double		calc;
 
 	i = 0;
 	while (i < WIDTH)
@@ -166,15 +188,11 @@ void	display_map(t_data *data)
 	i = 0;
 	while (i < WIDTH)
 	{
-		/*if (data->rays[i]->side)
-			color = 0xFFFFFFFF;
-		else
-			color = 0xD1D1D1FF;*/
 		calc = 400.0 / (data->rays[i]->len);
 		if (calc < 0)
 			calc = 0;
-		else if (calc > (HEIGHT / 2.0))
-			calc = (HEIGHT / 2.0) - 1;
+		else if (calc > (float)HEIGHT)
+			calc = HEIGHT;
 		dda(data, i, HEIGHT / 2.0 - calc, \
 				i, HEIGHT / 2.0 + calc, data->rays[i]);
 		i++;
