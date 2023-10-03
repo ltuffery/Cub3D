@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/03 21:12:42 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:50:41 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,16 @@
 #include "MLX42/MLX42.h"
 #include <math.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-/*static void	puts_pixel(mlx_image_t *image, int y, int x, int type_chunk)
-{
-	int	xx;
-	int	yy;
-	int	d;
-
-	yy = 0;
-	if (type_chunk == 1)
-	d = 10;
-	else
-		d = 15;
-	while (yy < d)
-	{
-		xx = 0;
-		while (xx < d)
-		{
-			if (type_chunk == 0)
-				mlx_put_pixel(image, xx + (x * d), yy + (y * d), 0xFFFFFFFF);
-			else
-				mlx_put_pixel(image, xx + (x * d), yy + (y * d), 0x000000FF);
-			xx++;
-		}
-		yy++;
-	}
-}*/
 
 static int	colision(float x, float y, char **map)
 {
 	return (map[(int)y][(int)x] == '1');
 }
 
-static t_ray	*display_player_view(t_player *player, t_data *data, float shift)
+static t_ray	*display_player_view(t_player *p, t_data *data, float shift)
 {
 	t_vector	vec;
 	t_ray		*ray;
@@ -56,54 +31,38 @@ static t_ray	*display_player_view(t_player *player, t_data *data, float shift)
 	ray = malloc(sizeof(t_ray));
 	if (ray == NULL)
 		return (NULL);
-	vec.x = (player->x + cosf((player->direction->degree + shift) * PI / 180) \
-			- player->x) / LENGTH;
-	vec.y = (player->y + sinf((player->direction->degree + shift) * PI / 180) \
-			- player->y) / LENGTH;
-	ray->x = player->x;
-	ray->y = player->y;
+	vec.x = (p->x + cosf((p->direction->degree + shift) * PI / 180) \
+			- p->x) / LENGTH;
+	vec.y = (p->y + sinf((p->direction->degree + shift) * PI / 180) \
+			- p->y) / LENGTH;
+	ray->x = p->x;
+	ray->y = p->y;
 	ray->len = 0;
 	while (!colision(ray->x + vec.x, ray->y, data->map->content) && \
 			!colision(ray->x, ray->y + vec.y, data->map->content))
 	{
 		ray->x += vec.x;
 		ray->y += vec.y;
-		// if (ray->y > 0 && ray->x > 0)
-		// 	 mlx_put_pixel(data->image, ray->x * 15, ray->y * 15, 0x00FF00FF);
 	}
-	ray->len = sqrtf(powf((player->x - ray->x), 2) + powf((player->y - ray->y), 2));
+	ray->len = sqrtf(powf((p->x - ray->x), 2) + powf((p->y - ray->y), 2));
 	ray->side = colision(ray->x + vec.x, ray->y, data->map->content);
 	return (ray);
 }
 
 void	display_player(t_data *data)
 {
-	t_vector	vec;
-	int			d;
-	float		shift;
+	int		i;
+	float	shift;
 
-	vec.y = 0;
-	d = 10;
 	shift = 0;
-	while (vec.y < d)
-	{
-		vec.x = 0;
-		while (vec.x < d)
-		{
-			//mlx_put_pixel(data->image, vec.x + data->player->x * 15 - 5, \
-			//		vec.y + data->player->y * 15 - 5, 0xFF0000FF);
-			vec.x++;
-		}
-		vec.y++;
-	}
-	vec.y = 0;
+	i = 0;
 	while (shift < 60)
 	{
-		data->rays[(int)vec.y] = display_player_view(data->player, data, shift - 30);
+		data->rays[i] = display_player_view(data->player, data, shift - 30);
 		shift += 60.0 / WIDTH;
-		vec.y++;
+		i++;
 	}
-	data->rays[(int)vec.y] = NULL;
+	data->rays[i] = NULL;
 }
 
 static mlx_texture_t	*get_texture_face(t_data *data, t_ray *ray)
@@ -111,65 +70,74 @@ static mlx_texture_t	*get_texture_face(t_data *data, t_ray *ray)
 	if (!ray->side)
 	{
 		if (ray->y > data->player->y)
-			return data->map->so;
+			return (data->map->so);
 		else
-			return data->map->no;
+			return (data->map->no);
 	}
 	else
 	{
 		if (ray->x < data->player->x)
-			return data->map->we;
+			return (data->map->we);
 		else
-			return data->map->ea;
+			return (data->map->ea);
 	}
 }
 
-static void	dda(t_data *data, float x1, long double y1, float x2, long double y2, t_ray *ray)
+static int	get_pixel_point(mlx_texture_t *texture, t_ray *ray, \
+		t_player *player, float y)
 {
-    long double longueur, dx, dy, x, y;
-	unsigned int	color;
-	mlx_texture_t	*texture;
-
-    if (fabsl(x2 - x1) >= fabsl(y2 - y1)) {
-        longueur = fabsl(x2 - x1);
-    } else {
-        longueur = fabsl(y2 - y1);
-    }
-
-    dx = (x2 - x1) / longueur;
-    dy = (y2 - y1) / longueur;
-    x = x1;
-    y = y1;
-    int i = 1;
 	int	cor_x;
-	int	cor_y;
 
-	texture = get_texture_face(data, ray);
-    while (i <= longueur) {
-        x += dx;
-        y += dy;
-		cor_x = (int)((ray->x - (int)ray->x) * texture->width) * 4;
-		if (ray->side)
-			cor_x = (int)((ray->y - (int)ray->y) * texture->width) * 4;
-		if ((ray->side && ray->x < data->player->x) || (!ray->side && ray->y > data->player->y))
-			cor_x = (texture->width - 1) * 4 - cor_x;
-		cor_y = (float)(i) / longueur * texture->height;
-		cor_x += cor_y * texture->width * 4;
-		color = texture->pixels[cor_x] << 24;
-		color |= texture->pixels[cor_x + 1] << 16;
-		color |= texture->pixels[cor_x + 2] << 8;
-		color |= texture->pixels[cor_x + 3];
-		if (y > 0 && x > 0 && (int)y < HEIGHT)
-		 	mlx_put_pixel(data->image, x, y, color);
-        i++;
-    }
+	cor_x = (ray->x - (int)ray->x) * texture->width;
+	cor_x *= 4;
+	if (ray->side)
+	{
+		cor_x = (ray->y - (int)ray->y) * texture->width;
+		cor_x *= 4;
+	}
+	if ((ray->side && ray->x < player->x) || (!ray->side && ray->y > player->y))
+		cor_x = (texture->width - 1) * 4 - cor_x;
+	cor_x += (int)(y * texture->height) * texture->width * 4;
+	return (cor_x);
 }
 
-void	display_map(t_data *data)
+static unsigned int	get_pixel_color(uint8_t *pixels, int point)
+{
+	unsigned int	color;
+
+	color = pixels[point] << 24;
+	color |= pixels[point + 1] << 16;
+	color |= pixels[point + 2] << 8;
+	color |= pixels[point + 3];
+	return (color);
+}
+
+static void	dda(t_data *data, float x, float y1, float y2, t_ray *ray)
+{
+	double			longueur;
+	unsigned int	color;
+	mlx_texture_t	*texture;
+	int				i;
+	int				cor_x;
+
+	longueur = fabsl(y2 - y1);
+	i = 1;
+	texture = get_texture_face(data, ray);
+	while (i <= longueur)
+	{
+		y1 += 1.0;
+		cor_x = get_pixel_point(texture, ray, data->player, i / longueur);
+		color = get_pixel_color(texture->pixels, cor_x);
+		if (y1 > 0 && x > 0 && (int)y1 < HEIGHT)
+			mlx_put_pixel(data->image, x, y1, color);
+		i++;
+	}
+}
+
+static void	draw_bg(mlx_image_t *image, unsigned int flr, unsigned int clg)
 {
 	int	i;
 	int	j;
-	long double		calc;
 
 	i = 0;
 	while (i < WIDTH)
@@ -178,14 +146,22 @@ void	display_map(t_data *data)
 		while (j < HEIGHT)
 		{
 			if (j < HEIGHT / 2)
-				mlx_put_pixel(data->image, i, j, data->map->ceiling);
+				mlx_put_pixel(image, i, j, clg);
 			else
-				mlx_put_pixel(data->image, i, j, data->map->floor);
+				mlx_put_pixel(image, i, j, flr);
 			j++;
 		}
 		i++;
 	}
+}
+
+void	display_map(t_data *data)
+{
+	int		i;
+	float	calc;
+
 	i = 0;
+	draw_bg(data->image, data->map->floor, data->map->ceiling);
 	while (i < WIDTH)
 	{
 		calc = 400.0 / (data->rays[i]->len);
@@ -194,7 +170,7 @@ void	display_map(t_data *data)
 		else if (calc > (float)HEIGHT)
 			calc = HEIGHT;
 		dda(data, i, HEIGHT / 2.0 - calc, \
-				i, HEIGHT / 2.0 + calc, data->rays[i]);
+				HEIGHT / 2.0 + calc, data->rays[i]);
 		i++;
 	}
 }
