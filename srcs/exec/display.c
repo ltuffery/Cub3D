@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/04 19:56:41 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:12:03 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_ray	*display_player_view(t_player *p, t_data *data, float shift)
 		ray->x += vec.x;
 		ray->y += vec.y;
 	}
-	ray->len = sqrtf(powf(p->x - ray->x, 2) + powf(p->y - ray->y, 2));
+	ray->len = sqrtf(powf(p->x - ray->x, 2) + powf(p->y - ray->y, 2)) * cos(shift * PI / 180);
 	if (ray->len == 0)
 		ray->len = pow(10, -30);
 	ray->side = colision(ray->x + vec.x, ray->y, data->map->content);
