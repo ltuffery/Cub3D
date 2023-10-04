@@ -6,11 +6,14 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:13:33 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/03 22:18:28 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:53:35 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+#include "libft.h"
+#include <math.h>
+#include <stdio.h>
 
 mlx_texture_t	*get_texture_face(t_data *data, t_ray *ray)
 {
@@ -18,12 +21,20 @@ mlx_texture_t	*get_texture_face(t_data *data, t_ray *ray)
 	{
 		if (ray->y > data->player->y)
 			return (data->map->so);
+		else if (ray->y < data->player->y)
+			return (data->map->no);
+		else if (ray->len == 0)
+			return (data->map->so);
 		else
 			return (data->map->no);
 	}
 	else
 	{
 		if (ray->x < data->player->x)
+			return (data->map->we);
+		else if (ray->x > data->player->x)
+			return (data->map->ea);
+		else if (ray->len == 0)
 			return (data->map->we);
 		else
 			return (data->map->ea);

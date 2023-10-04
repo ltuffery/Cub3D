@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/03 22:20:56 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:56:41 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ static t_ray	*display_player_view(t_player *p, t_data *data, float shift)
 			- p->y) / LENGTH;
 	ray->x = p->x;
 	ray->y = p->y;
-	ray->len = 0;
 	while (!colision(ray->x + vec.x, ray->y, data->map->content) && \
 			!colision(ray->x, ray->y + vec.y, data->map->content))
 	{
 		ray->x += vec.x;
 		ray->y += vec.y;
 	}
-	ray->len = sqrtf(powf((p->x - ray->x), 2) + powf((p->y - ray->y), 2));
+	ray->len = sqrtf(powf(p->x - ray->x, 2) + powf(p->y - ray->y, 2));
+	if (ray->len == 0)
+		ray->len = pow(10, -30);
 	ray->side = colision(ray->x + vec.x, ray->y, data->map->content);
 	return (ray);
 }
@@ -70,15 +71,22 @@ static void	dda(t_data *data, int x, float y1, float y2)
 	double			longueur;
 	unsigned int	color;
 	mlx_texture_t	*texture;
-	int				i;
+	unsigned int	i;
 	int				cor_x;
 
 	longueur = fabsl(y2 - y1);
 	i = 1;
 	texture = get_texture_face(data, data->rays[x]);
+	if (y1 < 0)
+	{
+		i -= (int)y1;
+		y1 -= y1;
+	}
 	while (i <= longueur)
 	{
 		y1 += 1.0;
+		if (y1 > HEIGHT)
+			break ;
 		cor_x = get_pixel_point(texture, data->rays[x], \
 				data->player, i / longueur);
 		color = get_pixel_color(texture->pixels, cor_x);
@@ -100,8 +108,6 @@ void	display_map(t_data *data)
 		calc = 400.0 / (data->rays[i]->len);
 		if (calc < 0)
 			calc = 0;
-		else if (calc > (float)HEIGHT)
-			calc = HEIGHT;
 		dda(data, i, HEIGHT / 2.0 - calc, HEIGHT / 2.0 + calc);
 		i++;
 	}
