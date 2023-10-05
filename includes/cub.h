@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/04 19:59:34 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:27:52 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define LENGTH 200
 
 typedef struct s_ray {
+	float	angle;
 	float	x;
 	float	y;
 	float	len;
@@ -103,7 +104,7 @@ void			clean_rays(t_data *data);
 mlx_texture_t	*get_texture_face(t_data *data, t_ray *ray);
 int				get_pixel_point(mlx_texture_t *texture, t_ray *ray, \
 		t_player *player, float y);
-unsigned int	get_pixel_color(uint8_t *pixels, int point);
+unsigned int	get_pixel_color(mlx_texture_t *texture, unsigned int point);
 void			draw_bg(mlx_image_t *image, unsigned int flr, unsigned int clg);
 
 #endif

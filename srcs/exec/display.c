@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/04 20:12:03 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:33:25 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	display_player(t_data *data)
 	while (shift < 60)
 	{
 		data->rays[i] = display_player_view(data->player, data, shift - 30);
+		data->rays[i]->angle = shift - 30;
 		shift += 60.0 / WIDTH;
 		i++;
 	}
@@ -89,7 +90,7 @@ static void	dda(t_data *data, int x, float y1, float y2)
 			break ;
 		cor_x = get_pixel_point(texture, data->rays[x], \
 				data->player, i / longueur);
-		color = get_pixel_color(texture->pixels, cor_x);
+		color = get_pixel_color(texture, cor_x);
 		if (y1 > 0 && x > 0 && (int)y1 < HEIGHT)
 			mlx_put_pixel(data->image, x, y1, color);
 		i++;
