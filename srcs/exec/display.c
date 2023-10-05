@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/05 20:39:04 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:43:02 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,9 @@ static void	dda(t_data *data, int x, float y1, float y2)
 		i -= (int)y1;
 		y1 -= y1;
 	}
-	while (i <= longueur)
+	while (i <= longueur && y1 < HEIGHT)
 	{
 		y1 += 1.0;
-		if (y1 >= HEIGHT)
-			break ;
 		cor_x = get_pixel_point(texture, data->rays[x], \
 				data->player, i / longueur);
 		color = get_pixel_color(texture, cor_x);
