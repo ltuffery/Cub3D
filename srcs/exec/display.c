@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/05 20:33:25 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:39:04 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static t_ray	*display_player_view(t_player *p, t_data *data, float shift)
 		ray->x += vec.x;
 		ray->y += vec.y;
 	}
-	ray->len = sqrtf(powf(p->x - ray->x, 2) + powf(p->y - ray->y, 2)) * cos(shift * PI / 180);
+	ray->len = sqrtf(powf(p->x - ray->x, 2) + powf(p->y - ray->y, 2)) * \
+			cos(shift * PI / 180);
 	if (ray->len == 0)
 		ray->len = pow(10, -30);
 	ray->side = colision(ray->x + vec.x, ray->y, data->map->content);
@@ -86,7 +87,7 @@ static void	dda(t_data *data, int x, float y1, float y2)
 	while (i <= longueur)
 	{
 		y1 += 1.0;
-		if (y1 > HEIGHT)
+		if (y1 >= HEIGHT)
 			break ;
 		cor_x = get_pixel_point(texture, data->rays[x], \
 				data->player, i / longueur);
