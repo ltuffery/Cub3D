@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/05 20:43:02 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:39:16 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	dda(t_data *data, int x, float y1, float y2)
 	int				cor_x;
 
 	longueur = fabsl(y2 - y1);
-	i = 1;
+	i = 0;
 	texture = get_texture_face(data, data->rays[x]);
 	if (y1 < 0)
 	{
@@ -86,12 +86,12 @@ static void	dda(t_data *data, int x, float y1, float y2)
 	}
 	while (i <= longueur && y1 < HEIGHT)
 	{
-		y1 += 1.0;
 		cor_x = get_pixel_point(texture, data->rays[x], \
 				data->player, i / longueur);
 		color = get_pixel_color(texture, cor_x);
-		if (y1 > 0 && x > 0 && (int)y1 < HEIGHT)
+		if (y1 >= 0 && x >= 0 && (int)y1 < HEIGHT)
 			mlx_put_pixel(data->image, x, y1, color);
+		y1 += 1.0;
 		i++;
 	}
 }
