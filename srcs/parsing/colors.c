@@ -6,14 +6,13 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 09:21:55 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/06 18:42:17 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:43:32 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
 
-#include <stdio.h>
 static int	is_good_color_format(char *colors_line)
 {
 	int	i;
