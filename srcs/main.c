@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/06 18:38:16 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:47:06 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	valid_extension(char *file)
 	len = ft_strlen(file);
 	if (len < 4 || ft_strncmp(&file[len - 4], ".cub", 4) != 0)
 	{
-		ft_putstr_fd("Error\nInvalid extension", 2);
+		ft_putendl_fd("Error\nInvalid extension", 2);
 		exit(1);
 	}
 }
@@ -60,13 +60,13 @@ int	main(int ac, char **av)
 	map.fd = open(av[1], O_RDONLY);
 	if (map.fd == -1)
 	{
-		ft_putstr_fd("Error\n", 2);
+		ft_putendl_fd("Error\nCan not be opened", 2);
 		exit(1);
 	}
 	setup_config(&map);
 	if (!is_all_good(&map))
 	{
-		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Error\nInvalid map", 2);
 		clean_map(&map);
 		return (1);
 	}
