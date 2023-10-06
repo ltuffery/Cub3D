@@ -1,4 +1,4 @@
-NO ./maps/textures/texture1.png
+NO ./maps/textures/texture6.png
 SO ./maps/textures/texture2.png
 WE ./maps/textures/texture3.png
 EA ./maps/textures/texture4.png
@@ -10,6 +10,5 @@ C 200,0,0
 1011101
 1001001
 1000001
-1S00001
-10000001
+1N00001
 1111111
