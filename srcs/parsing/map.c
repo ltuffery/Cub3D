@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:39:42 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/28 18:15:44 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/06 17:47:21 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static int	check_valid_border(char **content, int y, int x)
 			return (1);
 		if (y == 0 || x == 0)
 			return (0);
-		if (content[y - 1][x + i] == ' ' || content[y - 1][x + i] == '\0')
+		if (content[y - 1][x] == ' ' || content[y - 1][x] == '\0')
 			return (0);
 		if (content[y][x + i] == ' ' || content[y][x + i] == '\0')
 			return (0);
 		if (content[y + 1] == NULL)
 			return (0);
-		if (content[y + 1][x + i] == ' ' || content[y + 1][x + i] == '\0')
+		if (content[y + 1][x] == ' ' || content[y + 1][x] == '\0')
 			return (0);
 		i++;
 	}
