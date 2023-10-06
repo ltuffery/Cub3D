@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:12:45 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/06 18:02:44 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:12:28 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,28 @@ static int	valid_identifier(char *line)
 
 static int	valid_path(char *path)
 {
-	int	len;
-	int	fd;
+	int		len;
+	int		fd;
+	char	*trim;
 
-	len = ft_strlen(path);
-	if (len < 4 || ft_strncmp(&path[len - 4], ".png", 4) != 0)
+	trim = ft_strtrim(&path[2], " \t");
+	len = ft_strlen(trim);
+	if (len < 4 || ft_strncmp(&trim[len - 4], ".png", 4) != 0)
 		return (0);
-	fd = open(&path[3], O_RDONLY);
+	fd = open(trim, O_RDONLY);
+	free(trim);
 	return (fd != -1);
 }
 
 static void	assign(mlx_texture_t **a, char *b)
 {
+	char	*trim;
+
 	if ((*a) != NULL)
 		mlx_delete_texture(*a);
-	(*a) = mlx_load_png(b);
+	trim = ft_strtrim(b, " \t");
+	(*a) = mlx_load_png(trim);
+	free(trim);
 }
 
 int	is_texture_line(char *line)

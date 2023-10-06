@@ -6,12 +6,13 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 09:21:55 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/06 18:43:32 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:07:37 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
+#include <stdio.h>
 
 static int	is_good_color_format(char *colors_line)
 {
@@ -33,14 +34,21 @@ static int	is_good_color_format(char *colors_line)
 
 int	is_color_line(char *line)
 {
+	char	*trim;
+
 	if ((line[0] != FLOOR && line[0] != CEILING) || line[1] != ' ')
 		return (0);
-	if (!is_good_color_format(&line[2]))
+	trim = ft_strtrim(&line[2], " \t");
+	if (!is_good_color_format(trim))
+	{
+		free(trim);
 		return (0);
+	}
+	free(trim);
 	return (1);
 }
 
-static void	free_tab(char **tab)
+static void	free_tab_and_more(char **tab, char *more)
 {
 	int	i;
 
@@ -51,6 +59,7 @@ static void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
+	free(more);
 }
 
 void	insert_color(t_map **map, char *line)
@@ -59,8 +68,10 @@ void	insert_color(t_map **map, char *line)
 	unsigned int	color;
 	int				i;
 	int				nbr;
+	char			*trim;
 
-	split = ft_split(&line[2], ',');
+	trim = ft_strtrim(&line[2], " \t");
+	split = ft_split(trim, ',');
 	color = 0;
 	i = 0;
 	while (split[i] != NULL && (*map)->error == 0)
@@ -76,5 +87,5 @@ void	insert_color(t_map **map, char *line)
 		(*map)->floor = color;
 	else
 		(*map)->ceiling = color;
-	free_tab(split);
+	free_tab_and_more(split, trim);
 }
