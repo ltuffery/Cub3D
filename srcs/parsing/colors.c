@@ -6,13 +6,14 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 09:21:55 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/11 12:21:39 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:42:17 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft.h"
 
+#include <stdio.h>
 static int	is_good_color_format(char *colors_line)
 {
 	int	i;
@@ -55,16 +56,20 @@ static void	free_tab(char **tab)
 
 void	insert_color(t_map **map, char *line)
 {
-	char				**split;
-	unsigned int		color;
-	int					i;
+	char			**split;
+	unsigned int	color;
+	int				i;
+	int				nbr;
 
 	split = ft_split(&line[2], ',');
 	color = 0;
 	i = 0;
-	while (split[i] != NULL)
+	while (split[i] != NULL && (*map)->error == 0)
 	{
-		color |= ft_atoi(split[i]) << (8 * (4 - (i + 1)));
+		nbr = ft_atoi(split[i]);
+		if (nbr > 255 || nbr < 0)
+			(*map)->error = 1;
+		color |= nbr << (8 * (4 - (i + 1)));
 		i++;
 	}
 	color |= 0xFF;

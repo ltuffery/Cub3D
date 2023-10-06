@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/09/29 17:31:31 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:38:16 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	valid_extension(char *file)
 
 static int	is_all_good(t_map *map)
 {
+	if (map->error == 1)
+		return (0);
 	if (map->ea == NULL || map->no == NULL || \
 			map->so == NULL || map->we == NULL)
 		return (0);

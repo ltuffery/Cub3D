@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/05 20:27:52 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:38:00 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_map {
 	unsigned int	floor;
 	unsigned int	ceiling;
 	t_player		*player;
+	int				error;
 	char			**content;
 }	t_map;
 
