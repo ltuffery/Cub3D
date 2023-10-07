@@ -2,8 +2,8 @@ NO 			./maps/textures/texture2.png
 SO 	./maps/textures/texture2.png
 WE        ./maps/textures/texture3.png
 EA               ./maps/textures/texture1.png
-F 			  0,255,0
-C 255,0,0
+F 			  1,0,1
+C 255,-0,0
 
 1111111
 1010011

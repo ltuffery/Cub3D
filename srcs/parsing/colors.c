@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 09:21:55 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/07 16:32:30 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:45:34 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,27 @@ static int	is_good_color_format(char *colors_line)
 {
 	int	i;
 	int	nb_comma;
+	int	find_nb;
 
 	i = 0;
 	nb_comma = 0;
+	find_nb = 0;
 	while (colors_line[i] != '\0')
 	{
 		if (!ft_isdigit(colors_line[i]) && colors_line[i] != ',')
 			return (0);
+		if (colors_line[i] == ',' && find_nb == 0)
+			return (0);
 		if (colors_line[i] == ',')
+		{
+			find_nb = 0;
 			nb_comma++;
+		}
+		else if (ft_isdigit(colors_line[i]))
+			find_nb++;
 		i++;
 	}
-	return (nb_comma == 2);
+	return (nb_comma == 2 && find_nb != 0);
 }
 
 int	is_color_line(t_map **map, char *line)
