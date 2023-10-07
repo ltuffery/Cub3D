@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 10:39:42 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/07 16:47:33 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/07 19:04:06 by chmartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ void	insert_map(t_map **map, char *line)
 	line = get_next_line((*map)->fd);
 	while (line != NULL)
 	{
-		line[ft_strlen(line) - 1] = '\0';
+		if (line[ft_strlen(line) - 1 == '\n'])
+			line[ft_strlen(line) - 1] = '\0';
 		if (!is_map_line(line))
 			break ;
 		(*map)->content = ft_strappend(line, (*map)->content);
