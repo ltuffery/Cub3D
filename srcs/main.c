@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/06 19:12:08 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:36:17 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int ac, char **av)
 	{
 		ft_putendl_fd("Error\nInvalid map", 2);
 		clean_map(&map);
+		close(map.fd);
 		return (1);
 	}
 	launcher(&map);
