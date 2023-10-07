@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/06 18:38:00 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:32:47 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_vector {
 
 int				is_texture_line(char *line);
 void			insert_texture(t_map **map, char *line);
-int				is_color_line(char *line);
+int				is_color_line(t_map **map, char *line);
 void			insert_color(t_map **map, char *line);
 int				is_map_line(char *line);
 void			insert_map(t_map **map, char *line);

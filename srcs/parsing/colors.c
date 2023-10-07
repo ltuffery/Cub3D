@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 09:21:55 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/06 19:07:37 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:32:30 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	is_good_color_format(char *colors_line)
 	return (nb_comma == 2);
 }
 
-int	is_color_line(char *line)
+int	is_color_line(t_map **map, char *line)
 {
 	char	*trim;
 
@@ -41,6 +41,7 @@ int	is_color_line(char *line)
 	trim = ft_strtrim(&line[2], " \t");
 	if (!is_good_color_format(trim))
 	{
+		(*map)->error = 1;
 		free(trim);
 		return (0);
 	}

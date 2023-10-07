@@ -1,21 +1,11 @@
-NO 			./maps/textures/texture1.png
+NO 			./maps/textures/texture2.png
 SO 	./maps/textures/texture2.png
 WE        ./maps/textures/texture3.png
-
-EA 	./maps/textures/texture4.png
-F 			  0,0,0
-C 			255,0,255
-
-1111111
-1011101
-1N01001
-1111111
-
 EA               ./maps/textures/texture1.png
+F 			  0,256
+C 255,0,0
+
 1111111
-1011101
-1001001
-1000001
-1S00001
-10000001
+1010011
+1S01001
 1111111
