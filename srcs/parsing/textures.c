@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:12:45 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/06 19:12:28 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/07 15:39:37 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ static int	valid_path(char *path)
 	trim = ft_strtrim(&path[2], " \t");
 	len = ft_strlen(trim);
 	if (len < 4 || ft_strncmp(&trim[len - 4], ".png", 4) != 0)
+	{
+		free(trim);
 		return (0);
+	}
 	fd = open(trim, O_RDONLY);
 	free(trim);
 	return (fd != -1);
