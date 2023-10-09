@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/07 16:32:47 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:34:43 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,19 @@ typedef struct s_player {
 	t_direction	*direction;
 }	t_player;
 
+typedef struct s_color {
+	int	find;
+	unsigned int color;
+}	t_color;
+
 typedef struct s_map {
 	int				fd;
 	mlx_texture_t	*no;
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
-	unsigned int	floor;
-	unsigned int	ceiling;
+	t_color			*floor;
+	t_color			*ceiling;
 	t_player		*player;
 	int				error;
 	char			**content;

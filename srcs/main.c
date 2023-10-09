@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/07 16:36:17 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:39:17 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,22 @@ static void	valid_extension(char *file)
 
 static int	is_all_good(t_map *map)
 {
-	if (map->error == 1)
+	if (map->error == 1 || map->ceiling == NULL || map->floor == NULL)
+	{
+		ft_putendl_fd("Error\nInvalid color", 2);
 		return (0);
+	}
 	if (map->ea == NULL || map->no == NULL || \
 			map->so == NULL || map->we == NULL)
+	{
+		ft_putendl_fd("Error\nInvalid texture", 2);
 		return (0);
+	}
 	if (!is_valid_map(map->content))
+	{
+		ft_putendl_fd("Error\nContent map is not valid", 2);
 		return (0);
+	}
 	return (1);
 }
 
@@ -66,7 +75,6 @@ int	main(int ac, char **av)
 	setup_config(&map);
 	if (!is_all_good(&map))
 	{
-		ft_putendl_fd("Error\nInvalid map", 2);
 		clean_map(&map);
 		close(map.fd);
 		return (1);

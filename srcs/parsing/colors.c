@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 09:21:55 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/07 16:45:34 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:38:21 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,16 @@ static void	free_tab_and_more(char **tab, char *more)
 	free(more);
 }
 
+void	create_color(t_color **clr, unsigned int color)
+{
+	if (*clr == NULL)
+		*clr = malloc(sizeof(t_color));
+	if (*clr == NULL)
+		return ;
+	(*clr)->color = color;
+	(*clr)->find = 1;
+}
+
 void	insert_color(t_map **map, char *line)
 {
 	char			**split;
@@ -94,8 +104,8 @@ void	insert_color(t_map **map, char *line)
 	}
 	color |= 0xFF;
 	if (line[0] == FLOOR)
-		(*map)->floor = color;
+		create_color(&(*map)->floor, color);
 	else
-		(*map)->ceiling = color;
+		create_color(&(*map)->ceiling, color);
 	free_tab_and_more(split, trim);
 }

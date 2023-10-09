@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:23:13 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/06 17:39:16 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:40:05 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	display_map(t_data *data)
 	float	calc;
 
 	i = 0;
-	draw_bg(data->image, data->map->floor, data->map->ceiling);
+	draw_bg(data->image, data->map->floor->color, data->map->ceiling->color);
 	while (i < WIDTH)
 	{
 		calc = 400.0 / (data->rays[i]->len);
