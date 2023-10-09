@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/09 16:39:17 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:57:08 by chmartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	valid_number_argv(int ac)
 {
 	if (ac != 2)
 	{
-		ft_putstr_fd("Error\nOnly 2 args required\n", 2);
+		ft_putendl_fd("Error\nInvalid number of arguments", 2);
+		ft_putendl_fd("Usage : ./cub3D < insert map path>", 2);
 		exit(1);
 	}
 }
@@ -53,7 +54,7 @@ static int	is_all_good(t_map *map)
 	}
 	if (!is_valid_map(map->content))
 	{
-		ft_putendl_fd("Error\nContent map is not valid", 2);
+		ft_putendl_fd("Error\nInvalid map", 2);
 		return (0);
 	}
 	return (1);
@@ -69,7 +70,7 @@ int	main(int ac, char **av)
 	map.fd = open(av[1], O_RDONLY);
 	if (map.fd == -1)
 	{
-		ft_putendl_fd("Error\nCan not be opened", 2);
+		ft_putendl_fd("Error\nInvalid fd", 2);
 		exit(1);
 	}
 	setup_config(&map);
