@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 11:40:31 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/09 16:34:43 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:46:08 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef struct s_player {
 }	t_player;
 
 typedef struct s_color {
-	int	find;
-	unsigned int color;
+	int				find;
+	unsigned int	color;
 }	t_color;
 
 typedef struct s_map {

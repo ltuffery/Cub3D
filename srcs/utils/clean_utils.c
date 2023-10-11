@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:37:49 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/04 18:32:59 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:45:18 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ static void	clean_player(t_player *player)
 	if (player->direction != NULL)
 		free(player->direction);
 	free(player);
+}
+
+static void	clean_color(t_color *color)
+{
+	if (color != NULL)
+		free(color);
 }
 
 void	clean_map(t_map *map)
@@ -45,6 +51,8 @@ void	clean_map(t_map *map)
 		}
 		free(map->content);
 	}
+	clean_color(map->ceiling);
+	clean_color(map->floor);
 	clean_player(map->player);
 }
 
