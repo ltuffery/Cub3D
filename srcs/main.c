@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:13:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/10/09 17:57:08 by chmartin         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:47:34 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	is_all_good(t_map *map)
 		ft_putendl_fd("Error\nInvalid texture", 2);
 		return (0);
 	}
-	if (!is_valid_map(map->content))
+	if (map->content == NULL || !is_valid_map(map->content))
 	{
 		ft_putendl_fd("Error\nInvalid map", 2);
 		return (0);
